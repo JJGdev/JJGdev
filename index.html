@@ -6,7 +6,7 @@
 <title>JJGdev — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Space+Grotesk:wght@300;400;500&family=Syne:wght@400;700;800&family=Oxanium:wght@300;400;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,7 +21,8 @@
     --accent: #c8f04a;
     --accent2: #7ef0b8;
     --font-mono: 'DM Mono', monospace;
-    --font-serif: 'Fraunces', serif;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
   }
 
   html { scroll-behavior: smooth; }
@@ -37,7 +38,6 @@
 
   ::selection { background: var(--accent); color: #0a0a0a; }
 
-  /* ─── CUSTOM CURSOR DOT ─── */
   #cursor {
     width: 6px; height: 6px;
     background: var(--accent);
@@ -49,7 +49,6 @@
     transition: transform 0.1s ease;
   }
 
-  /* ─── NOISE OVERLAY ─── */
   body::before {
     content: '';
     position: fixed;
@@ -60,10 +59,9 @@
     opacity: 0.4;
   }
 
-  /* ─── LAYOUT ─── */
   .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
 
-  /* ─── NAV ─── */
+  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -78,14 +76,21 @@
     height: 56px;
   }
   .logo {
-    font-family: var(--font-serif);
-    font-size: 18px;
-    font-weight: 600;
+    font-family: 'Oxanium', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
     color: var(--text);
     text-decoration: none;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0;
   }
-  .logo span { color: var(--accent); }
+  .logo .bracket { color: var(--accent); font-weight: 300; font-size: 18px; line-height: 1; }
+  .logo .name { color: var(--text); }
+  .logo .dot { color: var(--accent); margin: 0 1px; }
+  .logo .suffix { color: var(--muted); font-weight: 400; letter-spacing: 0.08em; }
   nav ul { list-style: none; display: flex; gap: 2rem; }
   nav a {
     color: var(--muted);
@@ -93,11 +98,12 @@
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    font-family: var(--font-mono);
     transition: color 0.2s;
   }
   nav a:hover { color: var(--accent); }
 
-  /* ─── HERO ─── */
+  /* HERO */
   #inicio {
     min-height: 100vh;
     display: flex;
@@ -119,6 +125,7 @@
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 1.5rem;
+    font-family: var(--font-mono);
     display: flex; align-items: center; gap: 8px;
   }
   .hero-label::before {
@@ -128,22 +135,35 @@
     background: var(--accent);
   }
   .hero-name {
-    font-family: var(--font-serif);
-    font-size: clamp(52px, 7vw, 84px);
-    font-weight: 300;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
+    font-family: var(--font-display);
+    font-size: clamp(54px, 7.5vw, 92px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
     color: var(--text);
-    margin-bottom: 0.5rem;
   }
-  .hero-name em {
-    font-style: italic;
-    color: var(--accent2);
+  .hero-name .line2 {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent2);
+  }
+  .hero-name .line3 {
+    display: block;
+    font-weight: 400;
+    font-size: 0.52em;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+    -webkit-text-stroke: 0;
   }
   .hero-desc {
     margin-top: 2rem;
     color: var(--muted);
-    font-size: 13px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
     line-height: 1.8;
     max-width: 360px;
   }
@@ -167,6 +187,7 @@
   .btn-primary:hover { background: #d8ff5a; transform: translateY(-1px); }
   .btn-ghost {
     color: var(--muted);
+    font-family: var(--font-mono);
     font-size: 12px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -178,7 +199,6 @@
   .btn-ghost::after { content: '→'; transition: transform 0.2s; }
   .btn-ghost:hover::after { transform: translateX(4px); }
 
-  /* hero right panel */
   .hero-right {
     border: 1px solid var(--border);
     padding: 2rem;
@@ -193,12 +213,14 @@
     font-size: 11px;
     color: var(--muted);
     letter-spacing: 0.06em;
+    font-family: var(--font-mono);
   }
   .status-line {
     display: flex; justify-content: space-between;
     padding: 8px 0;
     border-bottom: 1px solid var(--border);
     font-size: 12px;
+    font-family: var(--font-mono);
   }
   .status-line:last-child { border-bottom: none; }
   .status-key { color: var(--muted); }
@@ -217,7 +239,7 @@
     50% { opacity: 0.2; }
   }
 
-  /* ─── SECTIONS ─── */
+  /* SECTIONS */
   section { padding: 6rem 0; }
   .section-header {
     display: flex; align-items: baseline; gap: 1rem;
@@ -225,19 +247,16 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--border);
   }
-  .section-num {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-  }
+  .section-num { font-size: 11px; letter-spacing: 0.1em; color: var(--accent); font-family: var(--font-mono); }
   .section-title {
-    font-family: var(--font-serif);
-    font-size: 32px;
-    font-weight: 300;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
   }
 
-  /* ─── SKILLS ─── */
+  /* SKILLS */
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -252,7 +271,7 @@
   }
   .skill-cell:hover { background: var(--bg3); }
   .skill-icon { font-size: 20px; margin-bottom: 0.75rem; }
-  .skill-name { font-size: 12px; font-weight: 500; color: var(--text); }
+  .skill-name { font-size: 12px; font-weight: 500; color: var(--text); font-family: var(--font-mono); }
   .skill-level {
     margin-top: 8px;
     height: 2px;
@@ -264,10 +283,11 @@
     position: absolute;
     left: 0; top: 0; bottom: 0;
     background: var(--accent);
-    transition: width 1s ease;
+    width: 0;
+    transition: width 1.2s ease;
   }
 
-  /* ─── PROJECTS ─── */
+  /* PROJECTS */
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -295,121 +315,131 @@
   }
   .project-card:hover { background: var(--bg3); }
   .project-card:hover::before { transform: scaleX(1); }
-  .project-type {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-  }
+  .project-type { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; font-family: var(--font-mono); }
   .project-name {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: 22px;
-    font-weight: 300;
+    font-weight: 700;
     letter-spacing: -0.01em;
-    line-height: 1.2;
+    line-height: 1.15;
     margin-bottom: 0.75rem;
-  }
-  .project-desc {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.7;
-    flex: 1;
-  }
-  .project-tags {
-    margin-top: 1.5rem;
-    display: flex; flex-wrap: wrap; gap: 6px;
-  }
-  .tag {
-    font-size: 10px;
-    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    padding: 3px 8px;
   }
-  .project-links {
-    margin-top: 1.5rem;
-    display: flex; gap: 1rem;
-  }
+  .project-desc { font-size: 13px; color: var(--muted); line-height: 1.75; flex: 1; font-family: var(--font-body); font-weight: 300; }
+  .project-tags { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 3px 8px; font-family: var(--font-mono); }
+  .project-links { margin-top: 1.5rem; display: flex; gap: 1rem; }
   .project-link {
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-    display: flex; align-items: center; gap: 4px;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+    display: flex; align-items: center; gap: 4px; font-family: var(--font-mono);
   }
   .project-link:hover { color: var(--accent); }
   .project-link::after { content: '↗'; font-size: 10px; }
 
-  /* add project CTA */
-  .project-card.add-card {
-    align-items: center; justify-content: center;
-    border: 1px dashed var(--border2);
-    background: transparent;
-    min-height: 200px;
-    cursor: crosshair;
-  }
-  .project-card.add-card:hover { background: var(--bg3); border-color: var(--accent); }
-  .add-icon { font-size: 32px; color: var(--border2); margin-bottom: 0.5rem; }
-  .add-label { font-size: 12px; color: var(--muted); }
-  .project-card.add-card:hover .add-icon,
-  .project-card.add-card:hover .add-label { color: var(--accent); }
+  /* BLOG */
+  .blog-list { display: flex; flex-direction: column; gap: 1.5rem; }
 
-  /* ─── BLOG ─── */
-  .blog-list { display: flex; flex-direction: column; gap: 0; }
-  .blog-entry {
-    display: grid;
-    grid-template-columns: 120px 1fr auto;
-    gap: 2rem;
-    align-items: start;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
+  .blog-card {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    overflow: hidden;
+    transition: border-color 0.2s;
   }
-  .blog-entry:first-child { border-top: 1px solid var(--border); }
+  .blog-card:hover { border-color: var(--border2); }
+
+  .blog-card-top {
+    padding: 2rem 2rem 1.5rem;
+  }
+  .blog-meta {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1rem;
+  }
   .blog-date {
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-    padding-top: 3px;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); font-family: var(--font-mono);
+    border: 1px solid rgba(200,240,74,0.25);
+    padding: 3px 8px;
+  }
+  .blog-num {
+    font-size: 10px; letter-spacing: 0.06em;
+    color: var(--muted); font-family: var(--font-mono);
   }
   .blog-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 700;
     letter-spacing: -0.01em;
-    margin-bottom: 0.5rem;
     color: var(--text);
-  }
-  .blog-preview { font-size: 12px; color: var(--muted); line-height: 1.7; }
-  .blog-arrow {
-    font-size: 18px;
-    color: var(--muted);
-    padding-top: 2px;
-    transition: color 0.2s, transform 0.2s;
-  }
-  .blog-entry:hover .blog-arrow { color: var(--accent); transform: translate(2px, -2px); }
-  .blog-entry:hover .blog-title { color: var(--accent2); }
-
-  .new-entry-btn {
-    margin-top: 2rem;
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 12px;
-    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    padding: 10px 20px;
-    text-decoration: none;
-    transition: color 0.2s, border-color 0.2s;
-    cursor: crosshair;
+    line-height: 1.2;
+    margin-bottom: 1rem;
   }
-  .new-entry-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .blog-preview {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.75;
+  }
 
-  /* ─── CONTACT ─── */
+  .blog-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    border-top: 1px solid var(--border);
+    cursor: crosshair;
+    transition: background 0.15s;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+  }
+  .blog-toggle:hover { background: var(--bg3); }
+  .blog-toggle-label {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); font-family: var(--font-mono);
+    transition: color 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .blog-toggle-label::before {
+    content: '';
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: currentColor;
+    transition: width 0.2s;
+  }
+  .blog-toggle:hover .blog-toggle-label { color: var(--accent); }
+  .blog-toggle:hover .blog-toggle-label::before { width: 24px; }
+  .blog-toggle-icon {
+    font-size: 14px; color: var(--muted);
+    transition: color 0.2s, transform 0.35s ease;
+    display: inline-block;
+    font-family: var(--font-mono);
+  }
+  .blog-toggle.open .blog-toggle-icon { transform: rotate(180deg); color: var(--accent); }
+  .blog-toggle.open .blog-toggle-label { color: var(--accent); }
+
+  .blog-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  .blog-body.open { max-height: 800px; }
+  .blog-body-inner {
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .blog-body-inner p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    color: #aaa;
+    line-height: 1.9;
+    margin-bottom: 1.25rem;
+  }
+  .blog-body-inner p:last-child { margin-bottom: 0; }
+
+  /* CONTACT */
   #contacto {
     background: var(--bg2);
     border-top: 1px solid var(--border);
@@ -423,84 +453,48 @@
     align-items: start;
   }
   .contact-big {
-    font-family: var(--font-serif);
-    font-size: clamp(36px, 5vw, 60px);
-    font-weight: 300;
-    line-height: 1.1;
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.0;
     letter-spacing: -0.02em;
+    text-transform: uppercase;
   }
-  .contact-big em { font-style: italic; color: var(--accent); }
-  .contact-sub {
-    margin-top: 1.5rem;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.8;
-  }
+  .contact-big em { font-style: normal; color: var(--accent); }
+  .contact-sub { margin-top: 1.5rem; font-size: 14px; color: var(--muted); line-height: 1.8; font-family: var(--font-body); font-weight: 300; }
   .contact-details { display: flex; flex-direction: column; gap: 1.5rem; padding-top: 0.5rem; }
   .contact-item { display: flex; flex-direction: column; gap: 4px; }
-  .contact-label {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .contact-value {
-    font-size: 15px;
-    color: var(--text);
-  }
-  .contact-value a {
-    color: var(--accent2);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
+  .contact-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-family: var(--font-mono); }
+  .contact-value { font-size: 15px; color: var(--text); font-family: var(--font-body); }
+  .contact-value a { color: var(--accent2); text-decoration: none; transition: color 0.2s; }
   .contact-value a:hover { color: var(--accent); }
 
-  /* ─── FOOTER ─── */
-  footer {
-    padding: 2rem 0;
-    border-top: 1px solid var(--border);
-  }
+  /* FOOTER */
+  footer { padding: 2rem 0; border-top: 1px solid var(--border); }
   .footer-inner {
     display: flex; justify-content: space-between; align-items: center;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.04em;
+    font-size: 11px; color: var(--muted); letter-spacing: 0.04em; font-family: var(--font-mono);
   }
   .footer-inner span em { color: var(--accent); font-style: normal; }
 
-  /* ─── BG DECORATION ─── */
   .hero-bg-num {
-    position: absolute;
-    right: -2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: var(--font-serif);
-    font-size: 260px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.02);
-    pointer-events: none;
-    user-select: none;
-    line-height: 1;
+    position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+    font-family: var(--font-display); font-size: 260px; font-weight: 800;
+    color: rgba(255,255,255,0.02); pointer-events: none; user-select: none; line-height: 1;
+    text-transform: uppercase;
   }
 
-  /* ─── ANIMATIONS ─── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .fade-in.visible {
-    opacity: 1;
-    transform: none;
-  }
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
 
-  /* ─── RESPONSIVE ─── */
+  /* RESPONSIVE */
   @media (max-width: 700px) {
     .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
     .hero-right { display: none; }
     .contact-grid { grid-template-columns: 1fr; }
-    .blog-entry { grid-template-columns: 1fr; gap: 0.5rem; }
-    .blog-arrow { display: none; }
+    .blog-header { grid-template-columns: 1fr auto; }
+    .blog-date { display: none; }
     .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
     nav ul { gap: 1rem; }
   }
@@ -510,10 +504,10 @@
 
 <div id="cursor"></div>
 
-<!-- ─── NAV ─── -->
+<!-- NAV -->
 <nav>
   <div class="inner">
-    <a href="#inicio" class="logo">JJG<span>dev</span></a>
+    <a href="#inicio" class="logo"><span class="bracket">[</span><span class="name">JJG</span><span class="dot">·</span><span class="name">dev</span><span class="bracket">]</span></a>
     <ul>
       <li><a href="#inicio">Inicio</a></li>
       <li><a href="#proyectos">Proyectos</a></li>
@@ -523,13 +517,17 @@
   </div>
 </nav>
 
-<!-- ─── HERO ─── -->
+<!-- HERO -->
 <section id="inicio">
   <div class="container">
     <div class="hero-grid">
       <div>
         <p class="hero-label">Web Developer — En construcción</p>
-        <h1 class="hero-name">Juan<br><em>García</em></h1>
+        <h1 class="hero-name">
+          JJG
+          <span class="line2">dev</span>
+          <span class="line3">Portfolio · 2026</span>
+        </h1>
         <p class="hero-desc">A minimalist portfolio designed to showcase projects, learning progress and AI-assisted workflows.</p>
         <div class="hero-cta">
           <a href="#proyectos" class="btn-primary">Ver proyectos</a>
@@ -551,7 +549,7 @@
         </div>
         <div class="status-line">
           <span class="status-key">modo</span>
-          <span class="status-val accent">Full-time student</span>
+          <span class="status-val accent">Trabajando · Estudiando</span>
         </div>
         <div class="status-line">
           <span class="status-key">disponible</span>
@@ -567,7 +565,7 @@
   </div>
 </section>
 
-<!-- ─── SKILLS ─── -->
+<!-- SKILLS -->
 <section id="skills">
   <div class="container">
     <div class="section-header fade-in">
@@ -578,38 +576,38 @@
       <div class="skill-cell fade-in">
         <div class="skill-icon">⚡</div>
         <div class="skill-name">HTML5</div>
-        <div class="skill-level"><div class="skill-level-fill" data-width="80%"></div></div>
+        <div class="skill-level"><div class="skill-level-fill" data-width="12%"></div></div>
       </div>
       <div class="skill-cell fade-in">
         <div class="skill-icon">🎨</div>
         <div class="skill-name">CSS3</div>
-        <div class="skill-level"><div class="skill-level-fill" data-width="72%"></div></div>
+        <div class="skill-level"><div class="skill-level-fill" data-width="8%"></div></div>
       </div>
       <div class="skill-cell fade-in">
         <div class="skill-icon">⚙️</div>
         <div class="skill-name">JavaScript</div>
-        <div class="skill-level"><div class="skill-level-fill" data-width="55%"></div></div>
+        <div class="skill-level"><div class="skill-level-fill" data-width="5%"></div></div>
       </div>
       <div class="skill-cell fade-in">
         <div class="skill-icon">🐱</div>
         <div class="skill-name">Git / GitHub</div>
-        <div class="skill-level"><div class="skill-level-fill" data-width="60%"></div></div>
+        <div class="skill-level"><div class="skill-level-fill" data-width="7%"></div></div>
       </div>
       <div class="skill-cell fade-in">
         <div class="skill-icon">⚛️</div>
         <div class="skill-name">React</div>
-        <div class="skill-level"><div class="skill-level-fill" data-width="25%"></div></div>
+        <div class="skill-level"><div class="skill-level-fill" data-width="2%"></div></div>
       </div>
       <div class="skill-cell fade-in">
         <div class="skill-icon">🤖</div>
         <div class="skill-name">AI-assisted dev</div>
-        <div class="skill-level"><div class="skill-level-fill" data-width="70%"></div></div>
+        <div class="skill-level"><div class="skill-level-fill" data-width="18%"></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── PROJECTS ─── -->
+<!-- PROJECTS -->
 <section id="proyectos">
   <div class="container">
     <div class="section-header fade-in">
@@ -617,48 +615,26 @@
       <h2 class="section-title">Proyectos</h2>
     </div>
     <div class="projects-grid">
-
-      <!-- Sample project 1 -->
       <div class="project-card fade-in">
-        <p class="project-type">Web · Diseño</p>
-        <h3 class="project-name">Proyecto de ejemplo</h3>
-        <p class="project-desc">Descripción breve del proyecto. Qué problema resuelve, qué aprendiste construyéndolo y qué te resultó más interesante del proceso.</p>
+        <p class="project-type">Web · Portfolio · Primer proyecto</p>
+        <h3 class="project-name">JJGdev Portfolio <span style="font-size:13px; font-weight:400; color:var(--accent); letter-spacing:0.08em; font-family:var(--font-mono);">v1.0</span></h3>
+        <p class="project-desc">Mi primer proyecto real como desarrollador web. Un portfolio personal construido desde cero con HTML, CSS y JavaScript puro, sin frameworks ni plantillas. El proceso de hacerlo fue también mi primera toma de contacto real con el desarrollo web asistido por IA: aprender qué es un repositorio, cómo funciona el despliegue con Vercel, y cómo iterar sobre un diseño real con un objetivo concreto. Este sitio no es solo un portfolio, es el registro en tiempo real de cómo estoy aprendiendo.</p>
         <div class="project-tags">
           <span class="tag">HTML</span>
           <span class="tag">CSS</span>
-          <span class="tag">JS</span>
-        </div>
-        <div class="project-links">
-          <a href="#" class="project-link">GitHub</a>
-          <a href="#" class="project-link">Live demo</a>
-        </div>
-      </div>
-
-      <!-- Sample project 2 -->
-      <div class="project-card fade-in">
-        <p class="project-type">App · Utilidad</p>
-        <h3 class="project-name">Otro proyecto</h3>
-        <p class="project-desc">Un segundo proyecto que demuestra progreso. Puedes reemplazar estas tarjetas con tus repositorios reales de GitHub cuando estés listo.</p>
-        <div class="project-tags">
           <span class="tag">JavaScript</span>
-          <span class="tag">API</span>
+          <span class="tag">Vibe coding</span>
+          <span class="tag">Claude AI</span>
         </div>
         <div class="project-links">
-          <a href="#" class="project-link">GitHub</a>
+          <a href="https://github.com/JJGdev" target="_blank" class="project-link">GitHub</a>
         </div>
       </div>
-
-      <!-- Add card -->
-      <div class="project-card add-card fade-in">
-        <div class="add-icon">+</div>
-        <p class="add-label">Tus proyectos aquí</p>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- ─── BLOG ENTRIES ─── -->
+<!-- BLOG -->
 <section id="entradas">
   <div class="container">
     <div class="section-header fade-in">
@@ -667,44 +643,62 @@
     </div>
     <div class="blog-list">
 
-      <article class="blog-entry fade-in">
-        <time class="blog-date">Jun 2026</time>
-        <div>
+      <article class="blog-card fade-in">
+        <div class="blog-card-top">
+          <div class="blog-meta">
+            <time class="blog-date">Jun 2026</time>
+            <span class="blog-num">#001</span>
+          </div>
           <h3 class="blog-title">Inicio del portfolio: por dónde empezar</h3>
-          <p class="blog-preview">Primera entrada del blog. Reflexiones sobre el proceso de construir un espacio propio en internet mientras se aprende a programar. Las decisiones de diseño, las dudas, y por qué un portfolio es lo primero que hay que tener.</p>
+          <p class="blog-preview">Hace unas semanas decidí que era hora de tener un espacio propio en internet.</p>
         </div>
-        <span class="blog-arrow">↗</span>
+        <button class="blog-toggle" onclick="toggleBlog(this)">
+          <span class="blog-toggle-label">Seguir leyendo</span>
+          <span class="blog-toggle-icon">↓</span>
+        </button>
+        <div class="blog-body">
+          <div class="blog-body-inner">
+            <p>Hace unas semanas decidí que era hora de tener un espacio propio en internet. No porque tuviera algo impresionante que mostrar, sino precisamente por lo contrario: porque no tenía nada, y eso me parecía la mejor razón para empezar.</p>
+            <p>La pregunta inicial era sencilla y a la vez paralizante: ¿por dónde empiezo? No sabía HTML. No sabía CSS. No sabía qué era un repositorio ni qué significaba "desplegar" algo. Sabía que quería aprender desarrollo web, pero el mapa estaba en blanco.</p>
+            <p>La decisión fue construir el portfolio primero, antes de saber cómo hacerlo. Usar el propio proceso de creación como primer proyecto real. Sin plantillas, sin WordPress, sin atajos. Un archivo HTML, un editor de texto, y empezar a entender qué hace cada línea de código.</p>
+            <p>El resultado es lo que estás viendo ahora. No es perfecto, y no pretende serlo. Es honesto. Es el punto de partida, y eso es exactamente lo que tiene que ser un primer proyecto.</p>
+          </div>
+        </div>
       </article>
 
-      <article class="blog-entry fade-in">
-        <time class="blog-date">Jun 2026</time>
-        <div>
+      <article class="blog-card fade-in">
+        <div class="blog-card-top">
+          <div class="blog-meta">
+            <time class="blog-date">Jun 2026</time>
+            <span class="blog-num">#002</span>
+          </div>
           <h3 class="blog-title">Aprendiendo con IA: flujos de trabajo reales</h3>
-          <p class="blog-preview">Cómo integro herramientas de IA en mi proceso de aprendizaje sin depender de ellas. La diferencia entre usar la IA como tutor vs usarla como atajo, y por qué ese matiz importa.</p>
+          <p class="blog-preview">Antes de llegar aquí, probé otro camino.</p>
         </div>
-        <span class="blog-arrow">↗</span>
-      </article>
-
-      <article class="blog-entry fade-in">
-        <time class="blog-date">May 2026</time>
-        <div>
-          <h3 class="blog-title">De 0 a HTML: los primeros 30 días</h3>
-          <p class="blog-preview">Resumen honesto del primer mes aprendiendo desarrollo web. Lo que fue más difícil, lo que me sorprendió, y los recursos que más me han ayudado hasta ahora.</p>
+        <button class="blog-toggle" onclick="toggleBlog(this)">
+          <span class="blog-toggle-label">Seguir leyendo</span>
+          <span class="blog-toggle-icon">↓</span>
+        </button>
+        <div class="blog-body">
+          <div class="blog-body-inner">
+            <p>Antes de llegar aquí, probé otro camino. Usé Open Design junto con Gemini CLI como primera aproximación al desarrollo asistido por IA. La experiencia fue interesante, pero la herramienta aún tiene limitaciones importantes: la integración no era fluida, el feedback loop era lento y en varios puntos me encontré bloqueado sin una forma clara de avanzar. No es que sea mala, simplemente no era el momento para ese stack.</p>
+            <p>Así que me vine a Claude. Y la diferencia fue inmediata. No porque la IA haga el trabajo por mí, sino porque la conversación es mucho más natural. Puedo describir lo que quiero en español, recibir código funcional, entender qué hace cada parte, y pedir cambios concretos sin perder el hilo.</p>
+            <p>Lo más importante que he aprendido en este proceso es la distinción entre usar la IA como tutor y usarla como atajo. Cuando le pido que explique por qué un bloque de CSS funciona de cierta manera, estoy aprendiendo. Cuando simplemente copio y pego sin leer, no aprendo nada. Esa diferencia la controlo yo.</p>
+            <p>Todo este proyecto se está desarrollando con los planes gratuitos de Claude. Una decisión consciente: quería saber hasta dónde se puede llegar sin pagar, cuáles son los límites reales, y si es posible construir algo con sentido dentro de esas restricciones. La respuesta, de momento, es que sí. Con paciencia y siendo eficiente con cada prompt, se puede avanzar bastante.</p>
+          </div>
         </div>
-        <span class="blog-arrow">↗</span>
       </article>
 
     </div>
-    <a href="#" class="new-entry-btn fade-in">+ Nueva entrada</a>
   </div>
 </section>
 
-<!-- ─── CONTACT ─── -->
+<!-- CONTACT -->
 <section id="contacto">
   <div class="container">
     <div class="contact-grid">
       <div class="fade-in">
-        <h2 class="contact-big">¿Hablamos<br><em>juntos</em>?</h2>
+        <h2 class="contact-big">¿Hablamos<em>?</em></h2>
         <p class="contact-sub">Estoy abierto a prácticas, proyectos colaborativos y cualquier oportunidad de aprender trabajando. No dudes en escribirme.</p>
       </div>
       <div class="contact-details fade-in">
@@ -714,7 +708,7 @@
         </div>
         <div class="contact-item">
           <span class="contact-label">GitHub</span>
-          <span class="contact-value"><a href="https://github.com" target="_blank">github.com/JJGdev</a></span>
+          <span class="contact-value"><a href="https://github.com/JJGdev" target="_blank">github.com/JJGdev</a></span>
         </div>
         <div class="contact-item">
           <span class="contact-label">Disponibilidad</span>
@@ -732,25 +726,23 @@
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+<!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-inner">
       <span>© 2026 <em>JJGdev</em> — Hecho con curiosidad</span>
-      <span style="letter-spacing: 0.08em;">PORTFOLIO · v1.0</span>
+      <span style="letter-spacing: 0.08em;">PORTFOLIO · v1.1</span>
     </div>
   </div>
 </footer>
 
 <script>
-  // Custom cursor
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', e => {
     cursor.style.left = (e.clientX - 3) + 'px';
     cursor.style.top = (e.clientY - 3) + 'px';
   });
 
-  // Intersection observer for fade-ins
   const observer = new IntersectionObserver(entries => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -759,10 +751,8 @@
       }
     });
   }, { threshold: 0.1 });
-
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Animate skill bars when visible
   const skillObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -773,21 +763,32 @@
       }
     });
   }, { threshold: 0.3 });
-
   document.querySelector('.skills-grid') && skillObserver.observe(document.querySelector('.skills-grid'));
 
-  // Active nav highlight
-  const sections = document.querySelectorAll('section[id], #contacto');
+  const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('nav a');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 80) current = s.id;
-    });
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
     navLinks.forEach(a => {
       a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
     });
   });
+
+  function toggleBlog(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    document.querySelectorAll('.blog-body.open').forEach(b => {
+      b.classList.remove('open');
+      b.previousElementSibling.classList.remove('open');
+      b.previousElementSibling.querySelector('.blog-toggle-label').textContent = 'Seguir leyendo';
+    });
+    if (!isOpen) {
+      body.classList.add('open');
+      btn.classList.add('open');
+      btn.querySelector('.blog-toggle-label').textContent = 'Cerrar entrada';
+    }
+  }
 </script>
 </body>
 </html>
