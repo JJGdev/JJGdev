@@ -343,7 +343,6 @@
   .blog-card {
     border: 1px solid var(--border);
     background: var(--bg2);
-    overflow: hidden;
     transition: border-color 0.2s;
   }
   .blog-card:hover { border-color: var(--border2); }
@@ -488,15 +487,52 @@
   .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .fade-in.visible { opacity: 1; transform: none; }
 
-  /* RESPONSIVE */
+  /* RESPONSIVE — TABLET */
+  @media (max-width: 860px) {
+    .hero-name { font-size: clamp(48px, 9vw, 72px); }
+    .contact-big { font-size: clamp(32px, 6vw, 52px); }
+    .contact-grid { gap: 2.5rem; }
+  }
+
+  /* RESPONSIVE — MOBILE */
   @media (max-width: 700px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    body { cursor: auto; }
+    #cursor { display: none; }
+
+    .container { padding: 0 1.25rem; }
+    nav .inner { padding: 0 1.25rem; }
+    nav ul { gap: 0.75rem; }
+    nav a { font-size: 11px; letter-spacing: 0.03em; }
+
+    section { padding: 3.5rem 0; }
+
+    /* Hero */
+    .hero-grid { grid-template-columns: 1fr; gap: 0; }
     .hero-right { display: none; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .blog-header { grid-template-columns: 1fr auto; }
-    .blog-date { display: none; }
+    .hero-name { font-size: clamp(54px, 17vw, 80px); }
+    .hero-label { margin-bottom: 1rem; }
+    .hero-desc { max-width: 100%; margin-top: 1.5rem; }
+    .hero-cta { margin-top: 2rem; flex-wrap: wrap; }
+    .hero-bg-num { display: none; }
+
+    /* Skills */
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Projects */
+    .projects-grid { grid-template-columns: 1fr; }
+
+    /* Blog */
+    .blog-card-top { padding: 1.5rem 1.25rem 1.25rem; }
+    .blog-toggle { padding: 0.875rem 1.25rem; }
+    .blog-body-inner { padding: 1.5rem 1.25rem; }
+    .blog-title { font-size: 16px; }
+
+    /* Contact */
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-big { font-size: clamp(38px, 13vw, 56px); }
+
+    /* Footer */
     .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
-    nav ul { gap: 1rem; }
   }
 </style>
 </head>
