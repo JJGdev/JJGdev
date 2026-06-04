@@ -678,54 +678,8 @@
       <span class="section-num">/ 02</span>
       <h2 class="section-title">Entradas</h2>
     </div>
-    <div class="blog-list">
-
-      <article class="blog-card fade-in">
-        <div class="blog-card-top">
-          <div class="blog-meta">
-            <time class="blog-date">Jun 2026</time>
-            <span class="blog-num">#001</span>
-          </div>
-          <h3 class="blog-title">Inicio del portfolio: por dónde empezar</h3>
-          <p class="blog-preview">Hace unas semanas decidí que era hora de tener un espacio propio en internet.</p>
-        </div>
-        <button class="blog-toggle" onclick="toggleBlog(this)">
-          <span class="blog-toggle-label">Seguir leyendo</span>
-          <span class="blog-toggle-icon">↓</span>
-        </button>
-        <div class="blog-body">
-          <div class="blog-body-inner">
-            <p>Hace unas semanas decidí que era hora de tener un espacio propio en internet. No porque tuviera algo impresionante que mostrar, sino precisamente por lo contrario: porque no tenía nada, y eso me parecía la mejor razón para empezar.</p>
-            <p>La pregunta inicial era sencilla y a la vez paralizante: ¿por dónde empiezo? No sabía HTML. No sabía CSS. No sabía qué era un repositorio ni qué significaba "desplegar" algo. Sabía que quería aprender desarrollo web, pero el mapa estaba en blanco.</p>
-            <p>La decisión fue construir el portfolio primero, antes de saber cómo hacerlo. Usar el propio proceso de creación como primer proyecto real. Sin plantillas, sin WordPress, sin atajos. Un archivo HTML, un editor de texto, y empezar a entender qué hace cada línea de código.</p>
-            <p>El resultado es lo que estás viendo ahora. No es perfecto, y no pretende serlo. Es honesto. Es el punto de partida, y eso es exactamente lo que tiene que ser un primer proyecto.</p>
-          </div>
-        </div>
-      </article>
-
-      <article class="blog-card fade-in">
-        <div class="blog-card-top">
-          <div class="blog-meta">
-            <time class="blog-date">Jun 2026</time>
-            <span class="blog-num">#002</span>
-          </div>
-          <h3 class="blog-title">Aprendiendo con IA: flujos de trabajo reales</h3>
-          <p class="blog-preview">Antes de llegar aquí, probé otro camino.</p>
-        </div>
-        <button class="blog-toggle" onclick="toggleBlog(this)">
-          <span class="blog-toggle-label">Seguir leyendo</span>
-          <span class="blog-toggle-icon">↓</span>
-        </button>
-        <div class="blog-body">
-          <div class="blog-body-inner">
-            <p>Antes de llegar aquí, probé otro camino. Usé Open Design junto con Gemini CLI como primera aproximación al desarrollo asistido por IA. La experiencia fue interesante, pero la herramienta aún tiene limitaciones importantes: la integración no era fluida, el feedback loop era lento y en varios puntos me encontré bloqueado sin una forma clara de avanzar. No es que sea mala, simplemente no era el momento para ese stack.</p>
-            <p>Así que me vine a Claude. Y la diferencia fue inmediata. No porque la IA haga el trabajo por mí, sino porque la conversación es mucho más natural. Puedo describir lo que quiero en español, recibir código funcional, entender qué hace cada parte, y pedir cambios concretos sin perder el hilo.</p>
-            <p>Lo más importante que he aprendido en este proceso es la distinción entre usar la IA como tutor y usarla como atajo. Cuando le pido que explique por qué un bloque de CSS funciona de cierta manera, estoy aprendiendo. Cuando simplemente copio y pego sin leer, no aprendo nada. Esa diferencia la controlo yo.</p>
-            <p>Todo este proyecto se está desarrollando con los planes gratuitos de Claude. Una decisión consciente: quería saber hasta dónde se puede llegar sin pagar, cuáles son los límites reales, y si es posible construir algo con sentido dentro de esas restricciones. La respuesta, de momento, es que sí. Con paciencia y siendo eficiente con cada prompt, se puede avanzar bastante.</p>
-          </div>
-        </div>
-      </article>
-
+    <div class="blog-list" id="blog-list">
+      <p style="color:var(--muted); font-family:var(--font-mono); font-size:13px;">Cargando entradas...</p>
     </div>
   </div>
 </section>
@@ -826,6 +780,85 @@
       btn.querySelector('.blog-toggle-label').textContent = 'Cerrar entrada';
     }
   }
+
+  // ── Dynamic blog loader ──────────────────────────────────
+  function parseFrontmatter(text) {
+    const match = text.match(/^---
+([\s\S]*?)
+---
+?([\s\S]*)$/);
+    if (!match) return { meta: {}, body: text };
+    const meta = {};
+    match[1].split('
+').forEach(line => {
+      const idx = line.indexOf(':');
+      if (idx === -1) return;
+      const key = line.slice(0, idx).trim();
+      const val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+      meta[key] = val;
+    });
+    return { meta, body: match[2].trim() };
+  }
+
+  function mdToHtml(md) {
+    return md.split('
+
+').map(p => p.trim()).filter(Boolean)
+      .map(p => `<p>${p.replace(/
+/g, ' ')}</p>`).join('');
+  }
+
+  function fmtDate(d) {
+    try {
+      return new Date(d).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
+    } catch { return d; }
+  }
+
+  async function loadPosts() {
+    const list = document.getElementById('blog-list');
+    try {
+      const res = await fetch('/posts/index.json');
+      if (!res.ok) throw new Error();
+      const files = await res.json();
+      const posts = await Promise.all(files.map(async fn => {
+        const r = await fetch('/posts/' + fn);
+        const text = await r.text();
+        return { ...parseFrontmatter(text) };
+      }));
+      posts.sort((a, b) => new Date(b.meta.date) - new Date(a.meta.date));
+      if (!posts.length) {
+        list.innerHTML = '<p style="color:var(--muted);font-family:var(--font-mono);font-size:13px;">Aún no hay entradas.</p>';
+        return;
+      }
+      list.innerHTML = posts.map((post, i) => {
+        const num = String(i + 1).padStart(3, '0');
+        const preview = post.meta.preview || post.body.split('.')[0] + '.';
+        return `
+        <article class="blog-card fade-in">
+          <div class="blog-card-top">
+            <div class="blog-meta">
+              <time class="blog-date">${fmtDate(post.meta.date)}</time>
+              <span class="blog-num">#${num}</span>
+            </div>
+            <h3 class="blog-title">${post.meta.title || 'Sin título'}</h3>
+            <p class="blog-preview">${preview}</p>
+          </div>
+          <button class="blog-toggle" onclick="toggleBlog(this)">
+            <span class="blog-toggle-label">Seguir leyendo</span>
+            <span class="blog-toggle-icon">↓</span>
+          </button>
+          <div class="blog-body">
+            <div class="blog-body-inner">${mdToHtml(post.body)}</div>
+          </div>
+        </article>`;
+      }).join('');
+      document.querySelectorAll('#blog-list .fade-in').forEach(el => observer.observe(el));
+    } catch {
+      list.innerHTML = '<p style="color:var(--muted);font-family:var(--font-mono);font-size:13px;">Aún no hay entradas publicadas.</p>';
+    }
+  }
+
+  loadPosts();
 </script>
 </body>
 <script>
