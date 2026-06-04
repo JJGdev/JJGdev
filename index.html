@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -536,6 +535,7 @@
     .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
   }
 </style>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
@@ -783,29 +783,22 @@
 
   // ── Dynamic blog loader ──────────────────────────────────
   function parseFrontmatter(text) {
-    const match = text.match(/^---
-([\s\S]*?)
----
-?([\s\S]*)$/);
-    if (!match) return { meta: {}, body: text };
-    const meta = {};
-    match[1].split('
-').forEach(line => {
-      const idx = line.indexOf(':');
+    var parts = text.split('---');
+    if (parts.length < 3) return { meta: {}, body: text };
+    var meta = {};
+    parts[1].trim().split('\n').forEach(function(line) {
+      var idx = line.indexOf(':');
       if (idx === -1) return;
-      const key = line.slice(0, idx).trim();
-      const val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+      var key = line.slice(0, idx).trim();
+      var val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
       meta[key] = val;
     });
-    return { meta, body: match[2].trim() };
+    return { meta: meta, body: parts.slice(2).join('---').trim() };
   }
 
   function mdToHtml(md) {
-    return md.split('
-
-').map(p => p.trim()).filter(Boolean)
-      .map(p => `<p>${p.replace(/
-/g, ' ')}</p>`).join('');
+    return md.split('\n\n').map(function(p) { return p.trim(); }).filter(Boolean)
+      .map(function(p) { return '<p>' + p.replace(/\n/g, ' ') + '</p>'; }).join('');
   }
 
   function fmtDate(d) {
