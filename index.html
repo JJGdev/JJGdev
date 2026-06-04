@@ -25,7 +25,8 @@
     --font-body: 'Space Grotesk', sans-serif;
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { overflow-x: hidden; }
 
   body {
     background: var(--bg);
@@ -443,7 +444,7 @@
     background: var(--bg2);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    padding: 6rem 0;
+    padding: 4rem 0;
   }
   .contact-grid {
     display: grid;
@@ -490,7 +491,7 @@
   /* RESPONSIVE — TABLET */
   @media (max-width: 860px) {
     .hero-name { font-size: clamp(48px, 9vw, 72px); }
-    .contact-big { font-size: clamp(32px, 6vw, 52px); }
+    .contact-big { font-size: clamp(28px, 5vw, 44px); }
     .contact-grid { gap: 2.5rem; }
   }
 
@@ -529,7 +530,9 @@
 
     /* Contact */
     .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .contact-big { font-size: clamp(38px, 13vw, 56px); }
+    #contacto { padding: 3rem 0; }
+    .contact-big { font-size: clamp(28px, 9vw, 40px); letter-spacing: -0.01em; }
+    .contact-sub { font-size: 13px; margin-top: 1rem; }
 
     /* Footer */
     .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
