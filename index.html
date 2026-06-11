@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JJGdev — Portfolio</title>
+<meta name="description" content="Portfolio de JJGdev — desarrollador web en formación. Proyectos, blog de aprendizaje y desarrollo asistido por IA. HTML, CSS y JavaScript.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="JJGdev — Portfolio">
+<meta property="og:description" content="Desarrollador web en formación. Proyectos, blog de aprendizaje y desarrollo asistido por IA.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jjgdev-porfolio.netlify.app">
+<meta property="og:locale" content="es_ES">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='monospace' font-size='34' font-weight='bold' fill='%23c8f04a' text-anchor='middle'%3E[J]%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Space+Grotesk:wght@300;400;500&family=Syne:wght@400;700;800&family=Oxanium:wght@300;400;700;800&display=swap" rel="stylesheet">
@@ -103,6 +111,14 @@
     transition: color 0.2s;
   }
   nav a:hover { color: var(--accent); }
+  #scroll-progress {
+    position: absolute;
+    bottom: -1px; left: 0;
+    height: 1px;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.1s linear;
+  }
 
   /* HERO */
   #inicio {
@@ -438,6 +454,19 @@
     margin-bottom: 1.25rem;
   }
   .blog-body-inner p:last-child { margin-bottom: 0; }
+  .blog-body-inner strong { color: var(--text); font-weight: 500; }
+  .blog-body-inner em { color: var(--accent2); font-style: italic; }
+  .blog-body-inner code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  .blog-body-inner a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid rgba(126,240,184,0.3); transition: color 0.2s, border-color 0.2s; }
+  .blog-body-inner a:hover { color: var(--accent); border-color: var(--accent); }
 
   /* CONTACT */
   #contacto {
@@ -602,6 +631,7 @@
 
 <!-- NAV -->
 <nav>
+  <div id="scroll-progress"></div>
   <div class="inner">
     <a href="#inicio" class="logo"><span class="bracket">[</span><span class="name">JJG</span><span class="dot">·</span><span class="name">dev</span><span class="bracket">]</span></a>
     <ul>
@@ -624,7 +654,7 @@
           <span class="line2">dev</span>
           <span class="line3">Portfolio · 2026</span>
         </h1>
-        <p class="hero-desc">A minimalist portfolio designed to showcase projects, learning progress and AI-assisted workflows.</p>
+        <p class="hero-desc">Un portfolio minimalista para mostrar proyectos, progreso de aprendizaje y flujos de trabajo asistidos por IA.</p>
         <div class="hero-cta">
           <a href="#proyectos" class="btn-primary">Ver proyectos</a>
           <a href="#entradas" class="btn-ghost">Leer el blog</a>
@@ -653,7 +683,7 @@
         </div>
         <div class="status-line">
           <span class="status-key">ultimo_commit</span>
-          <span class="status-val">Hoy</span>
+          <span class="status-val" id="last-commit">…</span>
         </div>
       </div>
     </div>
@@ -714,7 +744,7 @@
       <div class="project-card fade-in">
         <p class="project-type">Web · Portfolio · Primer proyecto</p>
         <h3 class="project-name">JJGdev Portfolio <span style="font-size:13px; font-weight:400; color:var(--accent); letter-spacing:0.08em; font-family:var(--font-mono);">v1.0</span></h3>
-        <p class="project-desc">Mi primer proyecto real como desarrollador web. Un portfolio personal construido desde cero con HTML, CSS y JavaScript puro, sin frameworks ni plantillas. El proceso de hacerlo fue también mi primera toma de contacto real con el desarrollo web asistido por IA: aprender qué es un repositorio, cómo funciona el despliegue con Vercel, y cómo iterar sobre un diseño real con un objetivo concreto. Este sitio no es solo un portfolio, es el registro en tiempo real de cómo estoy aprendiendo.</p>
+        <p class="project-desc">Mi primer proyecto real como desarrollador web. Un portfolio personal construido desde cero con HTML, CSS y JavaScript puro, sin frameworks ni plantillas. El proceso de hacerlo fue también mi primera toma de contacto real con el desarrollo web asistido por IA: aprender qué es un repositorio, cómo funciona el despliegue con Netlify, y cómo iterar sobre un diseño real con un objetivo concreto. Este sitio no es solo un portfolio, es el registro en tiempo real de cómo estoy aprendiendo.</p>
         <div class="project-tags">
           <span class="tag">HTML</span>
           <span class="tag">CSS</span>
@@ -824,12 +854,15 @@
 
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('nav a');
+  const scrollProgress = document.getElementById('scroll-progress');
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
     navLinks.forEach(a => {
       a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
     });
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    scrollProgress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
   });
 
   function toggleBlog(btn) {
@@ -862,9 +895,22 @@
     return { meta: meta, body: parts.slice(2).join('---').trim() };
   }
 
+  function mdInline(text) {
+    return text
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  }
+
   function mdToHtml(md) {
     return md.split('\n\n').map(function(p) { return p.trim(); }).filter(Boolean)
-      .map(function(p) { return '<p>' + p.replace(/\n/g, ' ') + '</p>'; }).join('');
+      .map(function(p) { return '<p>' + mdInline(p.replace(/\n/g, ' ')) + '</p>'; }).join('');
+  }
+
+  function readingTime(text) {
+    const words = text.trim().split(/\s+/).length;
+    return Math.max(1, Math.round(words / 200)) + ' min';
   }
 
   function fmtDate(d) {
@@ -898,6 +944,7 @@
             <div class="blog-meta">
               <time class="blog-date">${fmtDate(post.meta.date)}</time>
               <span class="blog-num">#${num}</span>
+              <span class="blog-num">· ${readingTime(post.body)} de lectura</span>
             </div>
             <h3 class="blog-title">${post.meta.title || 'Sin título'}</h3>
             <p class="blog-preview">${preview}</p>
@@ -918,9 +965,39 @@
   }
 
   loadPosts();
-</script>
-</body>
-<script>
+
+  // ── Live status: último commit real desde la API de GitHub ──
+  function relativeDateEs(date) {
+    const days = Math.floor((Date.now() - date.getTime()) / 86400000);
+    if (days <= 0) return 'Hoy';
+    if (days === 1) return 'Ayer';
+    if (days < 30) return 'Hace ' + days + ' días';
+    const months = Math.floor(days / 30);
+    return months === 1 ? 'Hace 1 mes' : 'Hace ' + months + ' meses';
+  }
+
+  async function loadLastCommit() {
+    const el = document.getElementById('last-commit');
+    if (!el) return;
+    try {
+      const res = await fetch('https://api.github.com/repos/JJGdev/JJGdev/commits?per_page=1');
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      el.textContent = relativeDateEs(new Date(data[0].commit.author.date));
+      el.title = data[0].commit.message.split('\n')[0];
+    } catch {
+      el.textContent = 'Hoy';
+    }
+  }
+  loadLastCommit();
+
+  // ── Easter egg para quien abra la consola ──
+  console.log(
+    '%c[JJG·dev]%c\n¿Curioseando el código? Me gusta tu estilo.\nEste portfolio está hecho a mano con HTML, CSS y JS — y mucha curiosidad.\n→ soyjuan.app@gmail.com',
+    'font-size:20px;font-weight:bold;color:#c8f04a;background:#0a0a0a;padding:6px 12px;',
+    'font-size:12px;color:#888;'
+  );
+
   if (window.netlifyIdentity) {
     window.netlifyIdentity.on("init", user => {
       if (!user) {
@@ -931,6 +1008,5 @@
     });
   }
 </script>
-
 </body>
 </html>
