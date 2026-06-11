@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JJGdev — Blog</title>
+    <link>https://jjgdev-porfolio.netlify.app/#entradas</link>
+    <atom:link href="https://jjgdev-porfolio.netlify.app/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>Blog de aprendizaje de JJGdev — desarrollo web en público, errores incluidos.</description>
+    <language>es</language>
+    <lastBuildDate>Thu, 11 Jun 2026 14:10:32 GMT</lastBuildDate>
+    <item>
+      <title>El blog ya funciona: Lo que costó llegar hasta aquí</title>
+      <link>https://jjgdev-porfolio.netlify.app/#entradas</link>
+      <guid isPermaLink="false">el-blog-ya-funciona-lo-que-costó-llegar-hasta-aquí.md</guid>
+      <pubDate>Thu, 04 Jun 2026 10:03:00 GMT</pubDate>
+      <description>Poner en marcha el blog ha sido la parte más difícil del proyecto hasta ahora.</description>
+    </item>
+    <item>
+      <title>Aprendiendo con IA: flujos de trabajo reales</title>
+      <link>https://jjgdev-porfolio.netlify.app/#entradas</link>
+      <guid isPermaLink="false">002-aprendiendo-con-ia.md</guid>
+      <pubDate>Thu, 04 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Antes de llegar aquí, probé otro camino.</description>
+    </item>
+    <item>
+      <title>Inicio del portfolio: por dónde empezar</title>
+      <link>https://jjgdev-porfolio.netlify.app/#entradas</link>
+      <guid isPermaLink="false">001-inicio-del-portfolio.md</guid>
+      <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Hace unas semanas decidí que era hora de tener un espacio propio en internet.</description>
+    </item>
+  </channel>
+</rss>

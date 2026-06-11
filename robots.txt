@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://jjgdev-porfolio.netlify.app/sitemap.xml
