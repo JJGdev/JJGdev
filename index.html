@@ -273,6 +273,103 @@
     text-transform: uppercase;
   }
 
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 4.5rem;
+  }
+  .about-text p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 1.25rem;
+  }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-text strong { color: var(--text); font-weight: 500; }
+  .about-text em { color: var(--accent2); font-style: normal; }
+  .about-panel {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+  }
+  .about-panel::before {
+    content: 'sobre_mi.txt';
+    position: absolute;
+    top: -10px; left: 16px;
+    background: var(--bg);
+    padding: 0 8px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    font-family: var(--font-mono);
+  }
+
+  /* TIMELINE */
+  .timeline-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .timeline-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 3px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--border2);
+  }
+  .timeline-item { position: relative; padding-left: 2rem; padding-bottom: 2rem; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-dot {
+    position: absolute;
+    left: 0; top: 6px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .timeline-item.future .timeline-dot { animation: pulse 2s infinite; }
+  .timeline-item.future .timeline-title { color: var(--accent); }
+  .timeline-date {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .timeline-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .timeline-desc {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
   /* SKILLS */
   .skills-grid {
     display: grid;
@@ -467,6 +564,21 @@
   }
   .blog-body-inner a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid rgba(126,240,184,0.3); transition: color 0.2s, border-color 0.2s; }
   .blog-body-inner a:hover { color: var(--accent); border-color: var(--accent); }
+  .blog-hidden { display: none; }
+  .blog-more {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px;
+    cursor: crosshair;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .blog-more:hover { color: var(--accent); border-color: rgba(200,240,74,0.4); background: var(--bg3); }
 
   /* CONTACT */
   #contacto {
@@ -553,6 +665,46 @@
     margin-top: 1rem;
   }
 
+  /* CONTACT FORM */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: 6px; }
+  .form-field label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    padding: 10px 12px;
+    transition: border-color 0.2s;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: rgba(200,240,74,0.5);
+  }
+  .form-field textarea { resize: vertical; min-height: 110px; }
+  .contact-form .btn-primary {
+    border: none;
+    align-self: flex-start;
+    cursor: crosshair;
+  }
+  .contact-form .btn-primary:disabled { opacity: 0.6; }
+  .form-status { font-family: var(--font-mono); font-size: 12px; }
+  .form-status.ok { color: var(--accent2); }
+  .form-status.error { color: #f08a8a; }
+  .hidden-field { display: none; }
+
   /* FOOTER */
   footer { padding: 2rem 0; border-top: 1px solid var(--border); }
   .footer-inner {
@@ -586,8 +738,16 @@
 
     .container { padding: 0 1.25rem; }
     nav .inner { padding: 0 1.25rem; }
-    nav ul { gap: 0.75rem; }
-    nav a { font-size: 11px; letter-spacing: 0.03em; }
+    nav ul { gap: 0.5rem; }
+    nav a { font-size: 10px; letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-inicio { display: none; }
+    .logo { font-size: 13px; }
+    .logo .bracket { font-size: 16px; }
+
+    /* About */
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
+    .about-panel { padding: 1.5rem; }
+    .timeline-desc { font-size: 12px; }
 
     section { padding: 3.5rem 0; }
 
@@ -635,7 +795,8 @@
   <div class="inner">
     <a href="#inicio" class="logo"><span class="bracket">[</span><span class="name">JJG</span><span class="dot">·</span><span class="name">dev</span><span class="bracket">]</span></a>
     <ul>
-      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#inicio" class="nav-inicio">Inicio</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
       <li><a href="#proyectos">Proyectos</a></li>
       <li><a href="#entradas">Entradas</a></li>
       <li><a href="#contacto">Contacto</a></li>
@@ -691,11 +852,93 @@
   </div>
 </section>
 
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">/ 00</span>
+      <h2 class="section-title">Sobre mí</h2>
+    </div>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>Me llamo <strong>Juan García</strong>. Trabajo a jornada completa y, en el tiempo que queda, estudio desarrollo web. Este portfolio es mi primer proyecto real: lo estoy construyendo mientras aprendo, y cada commit es una pequeña lección.</p>
+        <p>Mi forma de aprender es poco tradicional: colaboro con <em>IA</em> para escribir código que todavía no sabría escribir solo, y después lo destripo hasta entender cómo funciona. Algunos lo llaman <em>vibe coding</em>; para mí es la forma más honesta de avanzar rápido sin saltarme la parte de comprender.</p>
+        <p>Documento todo el proceso en el blog — los errores también, porque es donde más se aprende. Si buscas a alguien con ganas, constancia y cero miedo a equivocarse, <strong>hablamos</strong>.</p>
+      </div>
+      <div class="about-panel">
+        <div class="status-line">
+          <span class="status-key">nombre</span>
+          <span class="status-val">Juan García</span>
+        </div>
+        <div class="status-line">
+          <span class="status-key">base</span>
+          <span class="status-val">España · Remoto</span>
+        </div>
+        <div class="status-line">
+          <span class="status-key">modo</span>
+          <span class="status-val">Trabajo + Estudio</span>
+        </div>
+        <div class="status-line">
+          <span class="status-key">herramientas</span>
+          <span class="status-val">VS Code · Claude · Git</span>
+        </div>
+        <div class="status-line">
+          <span class="status-key">aprendiendo</span>
+          <span class="status-val accent">JavaScript</span>
+        </div>
+        <div class="status-line">
+          <span class="status-key">objetivo</span>
+          <span class="status-val accent">Primeras prácticas</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-label fade-in">Recorrido</div>
+    <div class="timeline">
+      <div class="timeline-item fade-in">
+        <span class="timeline-dot"></span>
+        <div class="timeline-date">01 Jun 2026</div>
+        <div class="timeline-title">Primeras líneas</div>
+        <p class="timeline-desc">Empiezo a montar el portfolio con HTML y CSS. Primer contacto real con el código y con la idea de aprender en público.</p>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-dot"></span>
+        <div class="timeline-date">03 Jun 2026</div>
+        <div class="timeline-title">Primer deploy</div>
+        <p class="timeline-desc">El portfolio sale a internet. Aprendo qué es un repositorio, un commit y un despliegue — todo el mismo día.</p>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-dot"></span>
+        <div class="timeline-date">03 Jun 2026</div>
+        <div class="timeline-title">Migración a Netlify</div>
+        <p class="timeline-desc">Cambio de hosting y el blog se vuelve dinámico: las entradas viven en archivos markdown que se cargan al vuelo.</p>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-dot"></span>
+        <div class="timeline-date">04 Jun 2026</div>
+        <div class="timeline-title">Blog + CMS · v1.1</div>
+        <p class="timeline-desc">Publico mi primera entrada desde el panel de administración con Decap CMS. Escribir y publicar ya no requiere tocar código.</p>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-dot"></span>
+        <div class="timeline-date">11 Jun 2026</div>
+        <div class="timeline-title">Claude Code · v1.2</div>
+        <p class="timeline-desc">El proyecto pasa a desarrollarse con Claude Code: datos en vivo desde la API de GitHub, blog enriquecido y mejoras de SEO.</p>
+      </div>
+      <div class="timeline-item future fade-in">
+        <span class="timeline-dot"></span>
+        <div class="timeline-date">Próximamente</div>
+        <div class="timeline-title">Siguiente nivel</div>
+        <p class="timeline-desc">React y Node.js en el horizonte. El aprendizaje continúa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SKILLS -->
 <section id="skills">
   <div class="container">
     <div class="section-header fade-in">
-      <span class="section-num">/ 00</span>
+      <span class="section-num">/ 01</span>
       <h2 class="section-title">Stack & Habilidades</h2>
     </div>
     <div class="skills-grid">
@@ -737,7 +980,7 @@
 <section id="proyectos">
   <div class="container">
     <div class="section-header fade-in">
-      <span class="section-num">/ 01</span>
+      <span class="section-num">/ 02</span>
       <h2 class="section-title">Proyectos</h2>
     </div>
     <div class="projects-grid">
@@ -764,7 +1007,7 @@
 <section id="entradas">
   <div class="container">
     <div class="section-header fade-in">
-      <span class="section-num">/ 02</span>
+      <span class="section-num">/ 03</span>
       <h2 class="section-title">Entradas</h2>
     </div>
     <div class="blog-list" id="blog-list">
@@ -777,13 +1020,31 @@
 <section id="contacto">
   <div class="container">
     <div class="contact-header fade-in">
-      <span class="contact-tag">/ 03 — Contacto</span>
+      <span class="contact-tag">/ 04 — Contacto</span>
       <h2 class="contact-heading">¿Hablamos<em>?</em></h2>
     </div>
     <div class="contact-grid fade-in">
       <div>
-        <p class="contact-sub">Estoy abierto a prácticas, proyectos colaborativos y cualquier oportunidad de aprender trabajando. No dudes en escribirme.</p>
-        <div class="contact-buttons" style="margin-top:1.5rem;">
+        <p class="contact-sub">Estoy abierto a prácticas, proyectos colaborativos y cualquier oportunidad de aprender trabajando. Escríbeme desde el formulario o por donde prefieras.</p>
+        <div class="contact-details" style="margin-top:1.75rem;">
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <span class="contact-value"><a href="mailto:soyjuan.app@gmail.com">soyjuan.app@gmail.com</a></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value"><a href="https://github.com/JJGdev" target="_blank">github.com/JJGdev</a></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Disponibilidad</span>
+            <span class="contact-value" style="color: var(--accent);">Abierto a oportunidades</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Ubicación</span>
+            <span class="contact-value">España · Remoto</span>
+          </div>
+        </div>
+        <div class="contact-buttons" style="margin-top:1.75rem;">
           <a href="mailto:soyjuan.app@gmail.com" class="btn-primary">Enviar email</a>
           <a href="https://www.linkedin.com/in/juan-garcia-aba595275" target="_blank" class="btn-linkedin">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -791,24 +1052,24 @@
           </a>
         </div>
       </div>
-      <div class="contact-details">
-        <div class="contact-item">
-          <span class="contact-label">Email</span>
-          <span class="contact-value"><a href="mailto:soyjuan.app@gmail.com">soyjuan.app@gmail.com</a></span>
+      <form class="contact-form" name="contacto" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contacto">
+        <p class="hidden-field"><label>No rellenes esto: <input name="bot-field"></label></p>
+        <div class="form-field">
+          <label for="cf-nombre">Nombre</label>
+          <input type="text" id="cf-nombre" name="nombre" required autocomplete="name">
         </div>
-        <div class="contact-item">
-          <span class="contact-label">GitHub</span>
-          <span class="contact-value"><a href="https://github.com/JJGdev" target="_blank">github.com/JJGdev</a></span>
+        <div class="form-field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" required autocomplete="email">
         </div>
-        <div class="contact-item">
-          <span class="contact-label">Disponibilidad</span>
-          <span class="contact-value" style="color: var(--accent);">Abierto a oportunidades</span>
+        <div class="form-field">
+          <label for="cf-mensaje">Mensaje</label>
+          <textarea id="cf-mensaje" name="mensaje" required></textarea>
         </div>
-        <div class="contact-item">
-          <span class="contact-label">Ubicación</span>
-          <span class="contact-value">España · Remoto</span>
-        </div>
-      </div>
+        <button type="submit" class="btn-primary">Enviar mensaje</button>
+        <p class="form-status" id="form-status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>
@@ -818,7 +1079,7 @@
   <div class="container">
     <div class="footer-inner">
       <span>© 2026 <em>JJGdev</em> — Hecho con curiosidad</span>
-      <span style="letter-spacing: 0.08em;">PORTFOLIO · v1.1</span>
+      <span style="letter-spacing: 0.08em;">PORTFOLIO · v1.3</span>
     </div>
   </div>
 </footer>
@@ -939,7 +1200,7 @@
         const num = String(i + 1).padStart(3, '0');
         const preview = post.meta.preview || post.body.split('.')[0] + '.';
         return `
-        <article class="blog-card fade-in">
+        <article class="blog-card fade-in${i >= 3 ? ' blog-hidden' : ''}">
           <div class="blog-card-top">
             <div class="blog-meta">
               <time class="blog-date">${fmtDate(post.meta.date)}</time>
@@ -958,6 +1219,21 @@
           </div>
         </article>`;
       }).join('');
+      if (posts.length > 3) {
+        const more = document.createElement('button');
+        more.className = 'blog-more';
+        const update = () => {
+          const hidden = list.querySelectorAll('.blog-card.blog-hidden').length;
+          more.textContent = 'Mostrar más entradas · ' + hidden + ' restante' + (hidden === 1 ? '' : 's');
+        };
+        more.onclick = () => {
+          [...list.querySelectorAll('.blog-card.blog-hidden')].slice(0, 5)
+            .forEach(c => c.classList.remove('blog-hidden'));
+          list.querySelectorAll('.blog-card.blog-hidden').length ? update() : more.remove();
+        };
+        update();
+        list.appendChild(more);
+      }
       document.querySelectorAll('#blog-list .fade-in').forEach(el => observer.observe(el));
     } catch {
       list.innerHTML = '<p style="color:var(--muted);font-family:var(--font-mono);font-size:13px;">Aún no hay entradas publicadas.</p>';
@@ -965,6 +1241,34 @@
   }
 
   loadPosts();
+
+  // ── Formulario de contacto (Netlify Forms, envío sin recargar) ──
+  const contactForm = document.querySelector('.contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const status = document.getElementById('form-status');
+      const btn = contactForm.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Enviando…';
+      try {
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(contactForm)).toString()
+        });
+        if (!res.ok) throw new Error();
+        contactForm.reset();
+        status.textContent = '✓ Mensaje enviado. Te responderé pronto.';
+        status.className = 'form-status ok';
+      } catch {
+        status.textContent = '✗ No se pudo enviar. Escríbeme a soyjuan.app@gmail.com';
+        status.className = 'form-status error';
+      }
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensaje';
+    });
+  }
 
   // ── Live status: último commit real desde la API de GitHub ──
   function relativeDateEs(date) {
