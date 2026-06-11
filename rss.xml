@@ -6,7 +6,14 @@
     <atom:link href="https://jjgdev-porfolio.netlify.app/rss.xml" rel="self" type="application/rss+xml"/>
     <description>Blog de aprendizaje de JJGdev — desarrollo web en público, errores incluidos.</description>
     <language>es</language>
-    <lastBuildDate>Thu, 11 Jun 2026 14:10:32 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jun 2026 14:20:42 GMT</lastBuildDate>
+    <item>
+      <title>Primer día con Claude Code: la web ha crecido más que en toda la semana</title>
+      <link>https://jjgdev-porfolio.netlify.app/#entradas</link>
+      <guid isPermaLink="false">004-primer-dia-con-claude-code.md</guid>
+      <pubDate>Thu, 11 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Hoy ha sido el primer día trabajando con Claude Code, y ha sido otra historia.</description>
+    </item>
     <item>
       <title>El blog ya funciona: Lo que costó llegar hasta aquí</title>
       <link>https://jjgdev-porfolio.netlify.app/#entradas</link>
