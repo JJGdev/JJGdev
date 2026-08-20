@@ -320,21 +320,12 @@
     width: 84px; height: 84px;
     padding: 0; border: none; background: none; cursor: pointer;
     display: block;
-    transform: rotate(-8deg);
     transition: transform 0.35s cubic-bezier(.16,1,.3,1);
   }
   .about-sticker-wrap:hover .about-sticker,
   .about-sticker-wrap.active .about-sticker {
-    transform: rotate(-1deg) scale(1.1) translateY(-2px);
+    transform: scale(1.1) translateY(-2px);
   }
-  .about-sticker-frame {
-    position: absolute;
-    inset: -12%;
-    color: #f4f1ea;
-    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.55));
-    pointer-events: none;
-  }
-  .about-sticker-frame svg { width: 100%; height: 100%; display: block; fill: currentColor; }
   .about-sticker-photo {
     position: relative;
     width: 100%; height: 100%;
@@ -1052,7 +1043,6 @@
       <h2 class="section-title">Sobre mí</h2>
       <div class="about-sticker-wrap">
         <button type="button" class="about-sticker" aria-label="Foto de Juan García">
-          <span class="about-sticker-frame" aria-hidden="true"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M1024 448q0 21-1 33t-8.5 30t-22.5 33L544 992q-15 15-33 22.5t-30 8.5t-33 1v-5q-125-15-227.5-86T59 751T0 512q0-104 40.5-199t109-163.5T313 40.5T512 0q128 0 239 59t182 161.5t86 227.5h5zM512 64q-91 0-174 35.5T195 195T99.5 338T64 512q0 111 50.5 207.5T253 878t195 77q1-103 41.5-196T598 598t161-108.5T955 448q-15-107-77-195T719.5 114.5T512 64z"/></svg></span>
           <img src="https://github.com/JJGdev.png" alt="Juan García" loading="lazy" class="about-sticker-photo">
           <span class="about-sticker-shine"></span>
         </button>
