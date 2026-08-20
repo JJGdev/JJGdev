@@ -37,6 +37,7 @@ Documento todo el proceso en [el blog de mi portfolio](https://jjgdev-porfolio.n
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
 ![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
+![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat-square&logo=greensock&logoColor=black)
 ![Claude](https://img.shields.io/badge/Claude_Code-c8f04a?style=flat-square&logo=anthropic&logoColor=black)
 
 ## 📂 Este repositorio
@@ -60,6 +61,7 @@ Mi primer proyecto real: un **portfolio con blog integrado**, construido desde c
 - [x] **v1.2** — Datos en vivo desde la API de GitHub, SEO y Open Graph *(jun 2026)*
 - [x] **v1.3** — Sección "Sobre mí", timeline de aprendizaje y formulario de contacto *(jun 2026)*
 - [x] **v1.4** — Se añade WedToShare (proyecto en desarrollo) y se retoma la actividad del blog *(ago 2026)*
+- [x] **v1.5** — Motion design con GSAP: animaciones de entrada, botones magnéticos y spotlight en las tarjetas *(ago 2026)*
 - [ ] **Próximamente** — React, Node.js y nuevos proyectos
 
 ## 📊 Stats
