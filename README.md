@@ -59,6 +59,7 @@ Mi primer proyecto real: un **portfolio con blog integrado**, construido desde c
 - [x] **v1.1** — Blog dinámico con markdown + Decap CMS *(jun 2026)*
 - [x] **v1.2** — Datos en vivo desde la API de GitHub, SEO y Open Graph *(jun 2026)*
 - [x] **v1.3** — Sección "Sobre mí", timeline de aprendizaje y formulario de contacto *(jun 2026)*
+- [x] **v1.4** — Se añade WedToShare (proyecto en desarrollo) y se retoma la actividad del blog *(ago 2026)*
 - [ ] **Próximamente** — React, Node.js y nuevos proyectos
 
 ## 📊 Stats
