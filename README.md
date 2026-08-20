@@ -4,7 +4,7 @@
 
 ### Aprendiendo desarrollo web en público — cada commit es una lección
 
-[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-jjgdev--porfolio.netlify.app-c8f04a?style=for-the-badge&labelColor=0a0a0a)](https://jjgdev-porfolio.netlify.app)
+[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-jjg--dev.netlify.app-c8f04a?style=for-the-badge&labelColor=0a0a0a)](https://jjg-dev.netlify.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Juan_García-7ef0b8?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0a0a0a)](https://www.linkedin.com/in/juan-garcia-aba595275)
 [![Email](https://img.shields.io/badge/Email-soyjuan.app@gmail.com-e8e4dc?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0a0a0a)](mailto:soyjuan.app@gmail.com)
 
@@ -18,7 +18,7 @@ Me llamo **Juan García**. Trabajo a jornada completa y, en el tiempo que queda,
 
 Mi forma de aprender es poco tradicional: colaboro con **IA** para escribir código que todavía no sabría escribir solo, y después lo destripo hasta entender cómo funciona. Algunos lo llaman *vibe coding*; para mí es la forma más honesta de avanzar rápido sin saltarme la parte de comprender.
 
-Documento todo el proceso en [el blog de mi portfolio](https://jjgdev-porfolio.netlify.app/#entradas) — los errores también, porque es donde más se aprende.
+Documento todo el proceso en [el blog de mi portfolio](https://jjg-dev.netlify.app/#entradas) — los errores también, porque es donde más se aprende.
 
 ```json
 {

@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const SITE = 'https://jjgdev-porfolio.netlify.app';
+const SITE = 'https://jjg-dev.netlify.app';
 const postsDir = path.join(__dirname, 'posts');
 
 if (!fs.existsSync(postsDir)) {
