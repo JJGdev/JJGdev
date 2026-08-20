@@ -314,63 +314,102 @@
     align-items: start;
     margin-bottom: 4.5rem;
   }
-  .about-avatar-wrap { position: relative; display: inline-block; margin-bottom: 1.75rem; }
-  .about-avatar {
+  .about-sticker-wrap { position: relative; margin-left: auto; align-self: center; }
+  .about-sticker {
+    position: relative;
+    width: 60px; height: 60px;
+    padding: 0; border: none; background: none; cursor: pointer;
     display: block;
-    width: 76px; height: 76px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid var(--border2);
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    border-radius: 16px;
+    transform: rotate(-7deg);
+    transition: transform 0.35s cubic-bezier(.16,1,.3,1);
   }
-  .about-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .about-avatar-wrap:hover .about-avatar { border-color: var(--accent); transform: scale(1.05); }
+  .about-sticker-wrap:hover .about-sticker,
+  .about-sticker-wrap.active .about-sticker {
+    transform: rotate(-1deg) scale(1.08) translateY(-2px);
+  }
+  .about-sticker img {
+    width: 100%; height: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+    display: block;
+    border: 2px solid var(--border2);
+    box-shadow: 0 10px 22px -8px rgba(0,0,0,0.65);
+    transition: border-color 0.3s ease, box-shadow 0.35s ease;
+  }
+  .about-sticker-wrap:hover .about-sticker img,
+  .about-sticker-wrap.active .about-sticker img {
+    border-color: var(--accent);
+    box-shadow: 0 16px 28px -8px rgba(0,0,0,0.7);
+  }
+  .about-sticker-shine {
+    position: absolute; inset: 0;
+    border-radius: 16px;
+    background: conic-gradient(from 180deg at var(--mx, 50%) var(--my, 50%),
+      rgba(200,240,74,0) 0deg,
+      rgba(200,240,74,0.45) 50deg,
+      rgba(126,240,184,0.4) 120deg,
+      rgba(200,240,74,0) 200deg,
+      rgba(255,255,255,0.35) 290deg,
+      rgba(200,240,74,0) 360deg);
+    mix-blend-mode: color-dodge;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .about-sticker-wrap:hover .about-sticker-shine,
+  .about-sticker-wrap.active .about-sticker-shine { opacity: 0.9; }
+  .about-sticker-peel {
+    position: absolute;
+    right: 0; bottom: 0;
+    width: 18px; height: 18px;
+    background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.45) 50.5%, var(--bg2) 51%, var(--bg2) 100%);
+    border-radius: 0 0 16px 0;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+  }
+  .about-sticker-wrap:hover .about-sticker-peel,
+  .about-sticker-wrap.active .about-sticker-peel { transform: translate(2px, -2px) rotate(4deg); }
   .about-bubble {
     position: absolute;
-    left: calc(100% + 16px);
-    top: 50%;
-    transform: translateY(-50%) translateX(-8px) scale(0.92);
+    right: 0;
+    top: calc(100% + 12px);
+    transform: translateY(-6px) scale(0.92);
     background: var(--bg2);
     border: 1px solid var(--border2);
-    padding: 8px 14px;
+    padding: 10px 14px;
     border-radius: 10px;
     font-family: var(--font-mono);
     font-size: 12px;
     color: var(--text);
+    display: flex; flex-direction: column; gap: 6px; align-items: flex-start;
     white-space: nowrap;
-    display: flex; align-items: center; gap: 6px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease, transform 0.25s ease;
-    z-index: 5;
+    z-index: 10;
+  }
+  .about-sticker-wrap:hover .about-bubble,
+  .about-sticker-wrap.active .about-bubble {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
   }
   .about-bubble::before {
     content: '';
     position: absolute;
-    left: -5px; top: 50%;
+    right: 18px; top: -5px;
     width: 10px; height: 10px;
     background: var(--bg2);
     border-left: 1px solid var(--border2);
-    border-bottom: 1px solid var(--border2);
-    transform: translateY(-50%) rotate(45deg);
+    border-top: 1px solid var(--border2);
+    transform: rotate(45deg);
   }
-  .about-avatar-wrap:hover .about-bubble {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0) scale(1);
-  }
+  .about-bubble-text { display: flex; align-items: center; gap: 6px; }
+  .about-bubble-link { color: var(--accent); text-decoration: none; font-size: 11px; letter-spacing: 0.04em; }
+  .about-bubble-link:hover { text-decoration: underline; }
   @media (max-width: 640px) {
-    .about-bubble {
-      left: 50%; top: calc(100% + 14px);
-      transform: translateX(-50%) translateY(6px) scale(0.92);
-      white-space: normal; max-width: 200px;
-    }
-    .about-avatar-wrap:hover .about-bubble { transform: translateX(-50%) translateY(0) scale(1); }
-    .about-bubble::before {
-      left: 50%; top: -5px;
-      transform: translateX(-50%) rotate(45deg);
-      border-left: none; border-bottom: none;
-      border-top: 1px solid var(--border2); border-right: 1px solid var(--border2);
-    }
+    .about-bubble { max-width: 180px; white-space: normal; }
   }
   .about-text p {
     font-family: var(--font-body);
@@ -1012,18 +1051,20 @@
     <div class="section-header fade-in">
       <span class="section-num">/ 00</span>
       <h2 class="section-title">Sobre mí</h2>
+      <div class="about-sticker-wrap">
+        <button type="button" class="about-sticker" aria-label="Foto de Juan García">
+          <img src="https://github.com/JJGdev.png" alt="Juan García" loading="lazy">
+          <span class="about-sticker-shine"></span>
+          <span class="about-sticker-peel"></span>
+        </button>
+        <div class="about-bubble">
+          <span class="about-bubble-text"><span>👋</span> ¡Hola! Soy Juan</span>
+          <a href="https://github.com/JJGdev" target="_blank" rel="noopener" class="about-bubble-link">Ver GitHub ↗</a>
+        </div>
+      </div>
     </div>
     <div class="about-grid fade-in">
       <div class="about-text">
-        <div class="about-avatar-wrap">
-          <a href="https://github.com/JJGdev" target="_blank" class="about-avatar" aria-label="Perfil de GitHub de Juan García">
-            <img src="https://github.com/JJGdev.png" alt="Juan García" loading="lazy">
-          </a>
-          <div class="about-bubble">
-            <span>👋</span>
-            <span>¡Hola! Soy Juan</span>
-          </div>
-        </div>
         <p>Me llamo <strong>Juan García</strong>. Trabajo a jornada completa y, en el tiempo que queda, estudio desarrollo web. Este portfolio es mi primer proyecto real: lo estoy construyendo mientras aprendo, y cada commit es una pequeña lección.</p>
         <p>Mi forma de aprender es poco tradicional: colaboro con <em>IA</em> para escribir código que todavía no sabría escribir solo, y después lo destripo hasta entender cómo funciona. Algunos lo llaman <em>vibe coding</em>; para mí es la forma más honesta de avanzar rápido sin saltarme la parte de comprender.</p>
         <p>Documento todo el proceso en el blog — los errores también, porque es donde más se aprende. Si buscas a alguien con ganas, constancia y cero miedo a equivocarse, <strong>hablamos</strong>.</p>
@@ -1328,13 +1369,28 @@
 
   if (canHover) {
     document.addEventListener('mousemove', e => {
-      const card = e.target.closest('.project-card, .blog-card');
+      const card = e.target.closest('.project-card, .blog-card, .about-sticker');
       if (!card) return;
       const r = card.getBoundingClientRect();
       card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
       card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
     });
   }
+
+  // ── Sticker "Sobre mí": revela el bocadillo con tap en móvil ──
+  document.querySelectorAll('.about-sticker-wrap').forEach(wrap => {
+    const btn = wrap.querySelector('.about-sticker');
+    btn.addEventListener('click', () => {
+      const wasActive = wrap.classList.contains('active');
+      document.querySelectorAll('.about-sticker-wrap.active').forEach(w => w !== wrap && w.classList.remove('active'));
+      wrap.classList.toggle('active', !wasActive);
+    });
+  });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.about-sticker-wrap')) {
+      document.querySelectorAll('.about-sticker-wrap.active').forEach(w => w.classList.remove('active'));
+    }
+  });
 
   // ── Recorrido: colapsable con degradado ──
   const timelineCollapse = document.getElementById('timeline-collapse');
