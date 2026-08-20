@@ -366,6 +366,31 @@
     width: 1px;
     background: var(--border2);
   }
+  .timeline-collapse { height: 0; overflow: hidden; }
+  .timeline-fade {
+    position: relative;
+    height: 36px;
+    margin-top: -32px;
+    background: linear-gradient(to bottom, transparent, var(--bg) 90%);
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  .timeline-fade.hidden { opacity: 0; height: 0; margin-top: 0; }
+  .timeline-toggle {
+    margin-top: 1.5rem;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: none; border: none; padding: 0; cursor: pointer;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .timeline-toggle:hover { color: var(--accent); }
+  .timeline-toggle-icon { display: inline-block; transition: transform 0.35s ease; }
+  .timeline-toggle.open .timeline-toggle-icon { transform: rotate(180deg); }
   .timeline-item { position: relative; padding-left: 2rem; padding-bottom: 2rem; }
   .timeline-item:last-child { padding-bottom: 0; }
   .timeline-dot {
@@ -960,30 +985,33 @@
     </div>
     <div class="timeline-label fade-in">Recorrido</div>
     <div class="timeline">
-      <div class="timeline-item fade-in">
-        <span class="timeline-dot"></span>
-        <div class="timeline-date">01 Jun 2026</div>
-        <div class="timeline-title">Primeras líneas</div>
-        <p class="timeline-desc">Empiezo a montar el portfolio con HTML y CSS. Primer contacto real con el código y con la idea de aprender en público.</p>
+      <div class="timeline-collapse" id="timeline-collapse">
+        <div class="timeline-item fade-in">
+          <span class="timeline-dot"></span>
+          <div class="timeline-date">01 Jun 2026</div>
+          <div class="timeline-title">Primeras líneas</div>
+          <p class="timeline-desc">Empiezo a montar el portfolio con HTML y CSS. Primer contacto real con el código y con la idea de aprender en público.</p>
+        </div>
+        <div class="timeline-item fade-in">
+          <span class="timeline-dot"></span>
+          <div class="timeline-date">03 Jun 2026</div>
+          <div class="timeline-title">Primer deploy</div>
+          <p class="timeline-desc">El portfolio sale a internet. Aprendo qué es un repositorio, un commit y un despliegue — todo el mismo día.</p>
+        </div>
+        <div class="timeline-item fade-in">
+          <span class="timeline-dot"></span>
+          <div class="timeline-date">03 Jun 2026</div>
+          <div class="timeline-title">Migración a Netlify</div>
+          <p class="timeline-desc">Cambio de hosting y el blog se vuelve dinámico: las entradas viven en archivos markdown que se cargan al vuelo.</p>
+        </div>
+        <div class="timeline-item fade-in">
+          <span class="timeline-dot"></span>
+          <div class="timeline-date">04 Jun 2026</div>
+          <div class="timeline-title">Blog + CMS · v1.1</div>
+          <p class="timeline-desc">Publico mi primera entrada desde el panel de administración con Decap CMS. Escribir y publicar ya no requiere tocar código.</p>
+        </div>
       </div>
-      <div class="timeline-item fade-in">
-        <span class="timeline-dot"></span>
-        <div class="timeline-date">03 Jun 2026</div>
-        <div class="timeline-title">Primer deploy</div>
-        <p class="timeline-desc">El portfolio sale a internet. Aprendo qué es un repositorio, un commit y un despliegue — todo el mismo día.</p>
-      </div>
-      <div class="timeline-item fade-in">
-        <span class="timeline-dot"></span>
-        <div class="timeline-date">03 Jun 2026</div>
-        <div class="timeline-title">Migración a Netlify</div>
-        <p class="timeline-desc">Cambio de hosting y el blog se vuelve dinámico: las entradas viven en archivos markdown que se cargan al vuelo.</p>
-      </div>
-      <div class="timeline-item fade-in">
-        <span class="timeline-dot"></span>
-        <div class="timeline-date">04 Jun 2026</div>
-        <div class="timeline-title">Blog + CMS · v1.1</div>
-        <p class="timeline-desc">Publico mi primera entrada desde el panel de administración con Decap CMS. Escribir y publicar ya no requiere tocar código.</p>
-      </div>
+      <div class="timeline-fade" id="timeline-fade"></div>
       <div class="timeline-item fade-in">
         <span class="timeline-dot"></span>
         <div class="timeline-date">11 Jun 2026</div>
@@ -1009,6 +1037,10 @@
         <p class="timeline-desc">React y Node.js en el horizonte. El aprendizaje continúa.</p>
       </div>
     </div>
+    <button class="timeline-toggle" id="timeline-toggle" aria-expanded="false">
+      <span class="timeline-toggle-label">Ver recorrido completo</span>
+      <span class="timeline-toggle-icon">↓</span>
+    </button>
   </div>
 </section>
 
@@ -1229,6 +1261,30 @@
       const r = card.getBoundingClientRect();
       card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
       card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  }
+
+  // ── Recorrido: colapsable con degradado ──
+  const timelineCollapse = document.getElementById('timeline-collapse');
+  const timelineFade = document.getElementById('timeline-fade');
+  const timelineToggle = document.getElementById('timeline-toggle');
+  if (timelineCollapse && timelineToggle) {
+    let expanded = false;
+    timelineToggle.addEventListener('click', () => {
+      expanded = !expanded;
+      timelineToggle.classList.toggle('open', expanded);
+      timelineToggle.setAttribute('aria-expanded', String(expanded));
+      timelineToggle.querySelector('.timeline-toggle-label').textContent = expanded ? 'Ver menos' : 'Ver recorrido completo';
+      if (expanded) {
+        timelineCollapse.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+      }
+      if (window.gsap) {
+        gsap.to(timelineCollapse, { height: expanded ? 'auto' : 0, duration: expanded ? 0.6 : 0.5, ease: expanded ? 'power3.out' : 'power3.inOut' });
+        gsap.to(timelineFade, { opacity: expanded ? 0 : 1, height: expanded ? 0 : 36, marginTop: expanded ? 0 : -32, duration: 0.4 });
+      } else {
+        timelineCollapse.style.height = expanded ? 'auto' : '0';
+        timelineFade.classList.toggle('hidden', expanded);
+      }
     });
   }
 
