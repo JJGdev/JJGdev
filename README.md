@@ -68,7 +68,7 @@ Mi primer proyecto real: un **portfolio con blog integrado**, construido desde c
 
 <div align="center">
 
-![GitHub stats](https://github-readme-stats.vercel.app/api?username=JJGdev&show_icons=true&hide_border=true&bg_color=0a0a0a&title_color=c8f04a&text_color=e8e4dc&icon_color=7ef0b8&ring_color=c8f04a&locale=es)
+![GitHub stats](https://github-readme-stats-eight-topaz.vercel.app/api?username=JJGdev&show_icons=true&hide_border=true&bg_color=0a0a0a&title_color=c8f04a&text_color=e8e4dc&icon_color=7ef0b8&ring_color=c8f04a&locale=es)
 
 </div>
 
