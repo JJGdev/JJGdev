@@ -86,6 +86,7 @@
     height: 56px;
   }
   .logo {
+    position: relative;
     font-family: 'Oxanium', sans-serif;
     font-size: 15px;
     font-weight: 700;
@@ -101,6 +102,26 @@
   .logo .name { color: var(--text); }
   .logo .dot { color: var(--accent); margin: 0 1px; }
   .logo .suffix { color: var(--muted); font-weight: 400; letter-spacing: 0.08em; }
+  .logo-wipe {
+    position: absolute;
+    left: 0; top: 0;
+    display: flex; align-items: center;
+    width: 0%;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--accent);
+    border-right: 3px solid var(--accent);
+    transition: width 0.45s ease, filter 0.45s ease;
+    pointer-events: none;
+  }
+  .logo:hover .logo-wipe {
+    width: 100%;
+    filter: drop-shadow(0 0 10px var(--accent));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-wipe { transition: none; }
+  }
   nav ul { list-style: none; display: flex; gap: 2rem; }
   nav a {
     color: var(--muted);
@@ -996,7 +1017,10 @@
 <nav>
   <div id="scroll-progress"></div>
   <div class="inner">
-    <a href="#inicio" class="logo"><span class="bracket">[</span><span class="name">JJG</span><span class="dot">·</span><span class="name">dev</span><span class="bracket">]</span></a>
+    <a href="#inicio" class="logo">
+      <span class="bracket">[</span><span class="name">JJG</span><span class="dot">·</span><span class="name">dev</span><span class="bracket">]</span>
+      <span class="logo-wipe" aria-hidden="true">[JJG·dev]</span>
+    </a>
     <ul>
       <li><a href="#inicio" class="nav-inicio">Inicio</a></li>
       <li><a href="#sobre-mi">Sobre mí</a></li>
