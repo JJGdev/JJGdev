@@ -455,19 +455,36 @@
   .about-text em { color: var(--accent2); font-style: normal; }
   .about-panel {
     border: 1px solid var(--border);
-    padding: 2rem;
+    padding: 0;
     position: relative;
+    overflow: hidden;
   }
-  .about-panel::before {
-    content: 'sobre_mi.txt';
-    position: absolute;
-    top: -10px; left: 16px;
-    background: var(--bg);
-    padding: 0 8px;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-    font-family: var(--font-mono);
+  .code-editor-bar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .code-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); }
+  .code-tab { margin-left: 8px; font-size: 11px; color: var(--muted); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .code-editor-body { padding: 1.25rem 1.5rem; font-family: var(--font-mono); font-size: 12px; line-height: 1.9; }
+  .code-editor-body p { white-space: pre; }
+  .ln { display: inline-block; width: 16px; color: rgba(255,255,255,0.2); user-select: none; }
+  .code-prop { padding-left: 16px; }
+  .ce-kw { color: var(--accent2); }
+  .ce-key { color: var(--accent); }
+  .ce-str { color: var(--text); }
+  .ce-str.hl { color: var(--accent2); }
+  .ce-p { color: var(--muted); }
+  .ce-cursor {
+    display: inline-block;
+    width: 6px; height: 13px;
+    background: var(--accent);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: status-cursor-blink 0.8s steps(1) infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ce-cursor { animation: none; }
   }
 
   /* TIMELINE */
@@ -964,7 +981,7 @@
 
     /* About */
     .about-grid { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
-    .about-panel { padding: 1.5rem; }
+    .code-editor-body { padding: 1rem 1.25rem; }
     .timeline-desc { font-size: 12px; }
 
     section { padding: 3.5rem 0; }
@@ -1102,29 +1119,19 @@
         <p>Documento todo el proceso en el blog — los errores también, porque es donde más se aprende. Si buscas a alguien con ganas, constancia y cero miedo a equivocarse, <strong>hablamos</strong>.</p>
       </div>
       <div class="about-panel">
-        <div class="status-line">
-          <span class="status-key">nombre</span>
-          <span class="status-val">Juan García</span>
+        <div class="code-editor-bar">
+          <span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span>
+          <span class="code-tab">sobre_mi.js</span>
         </div>
-        <div class="status-line">
-          <span class="status-key">base</span>
-          <span class="status-val">España · Remoto</span>
-        </div>
-        <div class="status-line">
-          <span class="status-key">modo</span>
-          <span class="status-val">Trabajo + Estudio</span>
-        </div>
-        <div class="status-line">
-          <span class="status-key">herramientas</span>
-          <span class="status-val">VS Code · Claude · Git</span>
-        </div>
-        <div class="status-line">
-          <span class="status-key">aprendiendo</span>
-          <span class="status-val accent">JavaScript</span>
-        </div>
-        <div class="status-line">
-          <span class="status-key">objetivo</span>
-          <span class="status-val accent">Primeras prácticas</span>
+        <div class="code-editor-body">
+          <p><span class="ln">1</span><span class="ce-kw">const</span> juan = <span class="ce-p">{</span></p>
+          <p class="code-prop"><span class="ln">2</span><span class="ce-key">nombre</span><span class="ce-p">:</span> <span class="ce-str">"Juan García"</span><span class="ce-p">,</span></p>
+          <p class="code-prop"><span class="ln">3</span><span class="ce-key">base</span><span class="ce-p">:</span> <span class="ce-str">"España · Remoto"</span><span class="ce-p">,</span></p>
+          <p class="code-prop"><span class="ln">4</span><span class="ce-key">modo</span><span class="ce-p">:</span> <span class="ce-str">"Trabajo + Estudio"</span><span class="ce-p">,</span></p>
+          <p class="code-prop"><span class="ln">5</span><span class="ce-key">herramientas</span><span class="ce-p">:</span> <span class="ce-str">"VS Code · Claude · Git"</span><span class="ce-p">,</span></p>
+          <p class="code-prop"><span class="ln">6</span><span class="ce-key">aprendiendo</span><span class="ce-p">:</span> <span class="ce-str hl">"JavaScript"</span><span class="ce-p">,</span></p>
+          <p class="code-prop"><span class="ln">7</span><span class="ce-key">objetivo</span><span class="ce-p">:</span> <span class="ce-str hl">"Primeras prácticas"</span><span class="ce-cursor"></span></p>
+          <p><span class="ln">8</span><span class="ce-p">}</span></p>
         </div>
       </div>
     </div>
