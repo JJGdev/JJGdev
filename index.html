@@ -276,6 +276,18 @@
   .status-key { color: var(--muted); }
   .status-val { color: var(--accent2); }
   .status-val.accent { color: var(--accent); }
+  .status-text::before { content: attr(data-full); }
+  .status-text.typing-active::before { content: ''; }
+  .status-text.typing::after {
+    content: '▊';
+    color: var(--accent);
+    margin-left: 1px;
+    animation: status-cursor-blink 0.8s steps(1) infinite;
+  }
+  @keyframes status-cursor-blink { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .status-text.typing::after { animation: none; content: none; }
+  }
   .pulse {
     display: inline-block;
     width: 6px; height: 6px;
@@ -1012,30 +1024,30 @@
           <a href="#entradas" class="btn-ghost">Leer el blog</a>
         </div>
       </div>
-      <div class="hero-right">
+      <div class="hero-right" id="status-panel">
         <div class="status-line">
           <span class="status-key">estado</span>
-          <span class="status-val"><span class="pulse"></span>Aprendiendo</span>
+          <span class="status-val"><span class="pulse"></span><span class="status-text" data-full="Aprendiendo"></span></span>
         </div>
         <div class="status-line">
           <span class="status-key">stack_actual</span>
-          <span class="status-val">HTML · CSS · JS</span>
+          <span class="status-val"><span class="status-text" data-full="HTML · CSS · JS"></span></span>
         </div>
         <div class="status-line">
           <span class="status-key">siguiente</span>
-          <span class="status-val">React / Node.js</span>
+          <span class="status-val"><span class="status-text" data-full="React / Node.js"></span></span>
         </div>
         <div class="status-line">
           <span class="status-key">modo</span>
-          <span class="status-val accent">Trabajando · Estudiando</span>
+          <span class="status-val accent"><span class="status-text" data-full="Trabajando · Estudiando"></span></span>
         </div>
         <div class="status-line">
           <span class="status-key">disponible</span>
-          <span class="status-val">Prácticas / Trabajo</span>
+          <span class="status-val"><span class="status-text" data-full="Prácticas / Trabajo"></span></span>
         </div>
         <div class="status-line">
           <span class="status-key">ultimo_commit</span>
-          <span class="status-val" id="last-commit">…</span>
+          <span class="status-val"><span class="status-text" id="last-commit" data-full="…"></span></span>
         </div>
       </div>
     </div>
@@ -1327,6 +1339,30 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  // ── status.json: efecto de escritura tipo terminal ──
+  function typeInto(el, text, speed) {
+    return new Promise(resolve => {
+      el.classList.add('typing-active', 'typing');
+      let i = 0;
+      const tick = () => {
+        el.textContent = text.slice(0, i);
+        i++;
+        if (i <= text.length) setTimeout(tick, speed);
+        else { el.classList.remove('typing'); resolve(); }
+      };
+      tick();
+    });
+  }
+  async function startStatusTypewriter() {
+    const panel = document.getElementById('status-panel');
+    if (!panel) return;
+    const lines = panel.querySelectorAll('.status-text:not(#last-commit)');
+    for (const el of lines) {
+      await typeInto(el, el.dataset.full, 28);
+      await new Promise(r => setTimeout(r, 100));
+    }
+  }
+
   if (window.gsap) {
     const heroLabel = document.querySelector('.hero-label');
     const heroLines = document.querySelectorAll('.reveal-inner');
@@ -1343,10 +1379,15 @@
         .to(heroLines, { autoAlpha: 1, y: '0%', duration: 0.8, stagger: 0.12 }, 0.2)
         .to(heroDesc, { autoAlpha: 1, y: 0, duration: 0.7 }, '-=0.5')
         .to(heroCta, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1 }, '-=0.45')
-        .to(heroPanel, { autoAlpha: 1, y: 0, x: 0, duration: 0.9 }, '-=0.6');
+        .to(heroPanel, { autoAlpha: 1, y: 0, x: 0, duration: 0.9 }, '-=0.6')
+        .call(startStatusTypewriter);
     } else if (heroLabel) {
       gsap.set([heroLabel, heroDesc, ...heroCta, heroPanel], { autoAlpha: 1, y: 0, x: 0 });
       gsap.set(heroLines, { autoAlpha: 1, y: '0%' });
+      document.querySelectorAll('#status-panel .status-text').forEach(el => {
+        el.classList.add('typing-active');
+        el.textContent = el.dataset.full;
+      });
     }
 
     if (canHover && !reduceMotion) {
@@ -1610,14 +1651,20 @@
   async function loadLastCommit() {
     const el = document.getElementById('last-commit');
     if (!el) return;
+    let text = 'Hoy';
     try {
       const res = await fetch('https://api.github.com/repos/JJGdev/JJGdev/commits?per_page=1');
       if (!res.ok) throw new Error();
       const data = await res.json();
-      el.textContent = relativeDateEs(new Date(data[0].commit.author.date));
+      text = relativeDateEs(new Date(data[0].commit.author.date));
       el.title = data[0].commit.message.split('\n')[0];
-    } catch {
-      el.textContent = 'Hoy';
+    } catch {}
+    el.dataset.full = text;
+    if (window.gsap && !reduceMotion) {
+      typeInto(el, text, 28);
+    } else {
+      el.classList.add('typing-active');
+      el.textContent = text;
     }
   }
   loadLastCommit();
