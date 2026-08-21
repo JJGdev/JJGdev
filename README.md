@@ -62,6 +62,7 @@ Mi primer proyecto real: un **portfolio con blog integrado**, construido desde c
 - [x] **v1.3** — Sección "Sobre mí", timeline de aprendizaje y formulario de contacto *(jun 2026)*
 - [x] **v1.4** — Se añade WedToShare (proyecto en desarrollo) y se retoma la actividad del blog *(ago 2026)*
 - [x] **v1.5** — Motion design con GSAP: animaciones de entrada, botones magnéticos y spotlight en las tarjetas *(ago 2026)*
+- [x] **v1.6** — Pantalla de carga animada al entrar por primera vez en cada sesión *(ago 2026)*
 - [ ] **Próximamente** — React, Node.js y nuevos proyectos
 
 ## 📊 Stats

@@ -930,6 +930,26 @@
     text-transform: uppercase;
   }
 
+  /* LOADING SCREEN */
+  #loader {
+    position: fixed; inset: 0;
+    z-index: 9999;
+    background: var(--bg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px;
+  }
+  .loader-logo {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--text);
+  }
+  .loader-bar { width: 160px; height: 2px; background: var(--border); }
+  .loader-bar-fill { height: 100%; width: 0%; background: var(--accent); }
+  .loader-pct { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+  body.loading-lock { overflow: hidden; }
+
   /* ANIMATIONS */
   .fade-in { opacity: 0; transform: translateY(28px) scale(0.98); transition: opacity 0.8s cubic-bezier(.16,1,.3,1), transform 0.8s cubic-bezier(.16,1,.3,1); }
   .fade-in.visible { opacity: 1; transform: none; }
@@ -1021,6 +1041,15 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-logo">
+    <span class="loader-piece" style="color:var(--accent);">[</span><span class="loader-piece">JJG</span><span class="loader-piece" style="color:var(--accent);">·</span><span class="loader-piece">Dev</span><span class="loader-piece" style="color:var(--accent);">]</span>
+  </div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  <div class="loader-pct">0%</div>
+</div>
+<noscript><style>#loader{display:none!important}</style></noscript>
 
 <div id="cursor"></div>
 
@@ -1162,14 +1191,14 @@
           <div class="timeline-title">Blog + CMS · v1.1</div>
           <p class="timeline-desc">Publico mi primera entrada desde el panel de administración con Decap CMS. Escribir y publicar ya no requiere tocar código.</p>
         </div>
+        <div class="timeline-item fade-in">
+          <span class="timeline-dot"></span>
+          <div class="timeline-date">11 Jun 2026</div>
+          <div class="timeline-title">Claude Code · v1.2</div>
+          <p class="timeline-desc">El proyecto pasa a desarrollarse con Claude Code: datos en vivo desde la API de GitHub, blog enriquecido y mejoras de SEO.</p>
+        </div>
       </div>
       <div class="timeline-fade" id="timeline-fade"></div>
-      <div class="timeline-item fade-in">
-        <span class="timeline-dot"></span>
-        <div class="timeline-date">11 Jun 2026</div>
-        <div class="timeline-title">Claude Code · v1.2</div>
-        <p class="timeline-desc">El proyecto pasa a desarrollarse con Claude Code: datos en vivo desde la API de GitHub, blog enriquecido y mejoras de SEO.</p>
-      </div>
       <div class="timeline-item fade-in">
         <span class="timeline-dot"></span>
         <div class="timeline-date">20 Ago 2026</div>
@@ -1181,6 +1210,12 @@
         <div class="timeline-date">20 Ago 2026</div>
         <div class="timeline-title">Motion design con GSAP</div>
         <p class="timeline-desc">Animaciones de entrada, botones magnéticos y spotlight en las tarjetas con GSAP. La web gana vida sin perder minimalismo.</p>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-dot"></span>
+        <div class="timeline-date">21 Ago 2026</div>
+        <div class="timeline-title">Pantalla de carga</div>
+        <p class="timeline-desc">Añado una animación de bienvenida al entrar por primera vez en cada sesión: el logo se ensambla y una barra de progreso da paso a la web.</p>
       </div>
       <div class="timeline-item future fade-in">
         <span class="timeline-dot"></span>
@@ -1394,7 +1429,8 @@
     }
   }
 
-  if (window.gsap) {
+  function runHeroEntrance() {
+    if (!window.gsap) return;
     const heroLabel = document.querySelector('.hero-label');
     const heroLines = document.querySelectorAll('.reveal-inner');
     const heroDesc = document.querySelector('.hero-desc');
@@ -1433,6 +1469,36 @@
         el.addEventListener('mouseleave', () => { xTo(0); yTo(0); });
       });
     }
+  }
+
+  // ── Pantalla de carga: solo la primera vez por sesión ──
+  const loader = document.getElementById('loader');
+  function skipLoader() {
+    if (loader) loader.remove();
+    document.body.classList.remove('loading-lock');
+    runHeroEntrance();
+  }
+  if (loader && window.gsap && !reduceMotion && !sessionStorage.getItem('jjgdev-loaded')) {
+    document.body.classList.add('loading-lock');
+    const pieces = loader.querySelectorAll('.loader-piece');
+    const bar = loader.querySelector('.loader-bar-fill');
+    const pct = loader.querySelector('.loader-pct');
+    gsap.set(pieces, { autoAlpha: 0, y: 8 });
+    gsap.timeline({
+      onComplete: () => {
+        sessionStorage.setItem('jjgdev-loaded', '1');
+        gsap.to(loader, { autoAlpha: 0, duration: 0.5, onComplete: skipLoader });
+      }
+    })
+      .to(pieces, { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.08 })
+      .to(bar, { width: '100%', duration: 0.9, ease: 'power1.inOut' }, '-=0.05')
+      .to({ val: 0 }, {
+        val: 100, duration: 0.9, ease: 'power1.inOut',
+        onUpdate: function () { pct.textContent = Math.round(this.targets()[0].val) + '%'; }
+      }, '<')
+      .to({}, { duration: 0.3 });
+  } else {
+    skipLoader();
   }
 
   if (canHover) {
