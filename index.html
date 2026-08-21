@@ -1429,18 +1429,29 @@
     }
   }
 
+  // Oculta el hero de inmediato (antes de que arranque el loader) para que no
+  // haya un parpadeo de contenido visible mientras el loader está en pantalla.
+  const heroEls = {};
+  function primeHeroEntrance() {
+    if (!window.gsap) return;
+    heroEls.label = document.querySelector('.hero-label');
+    heroEls.lines = document.querySelectorAll('.reveal-inner');
+    heroEls.desc = document.querySelector('.hero-desc');
+    heroEls.cta = document.querySelectorAll('.hero-cta > a');
+    heroEls.panel = document.querySelector('.hero-right');
+    if (heroEls.label && !reduceMotion) {
+      gsap.set([heroEls.label, heroEls.desc, ...heroEls.cta], { autoAlpha: 0, y: 20 });
+      gsap.set(heroEls.lines, { autoAlpha: 0, y: '110%' });
+      gsap.set(heroEls.panel, { autoAlpha: 0, y: 16, x: 16 });
+    }
+  }
+  primeHeroEntrance();
+
   function runHeroEntrance() {
     if (!window.gsap) return;
-    const heroLabel = document.querySelector('.hero-label');
-    const heroLines = document.querySelectorAll('.reveal-inner');
-    const heroDesc = document.querySelector('.hero-desc');
-    const heroCta = document.querySelectorAll('.hero-cta > a');
-    const heroPanel = document.querySelector('.hero-right');
+    const { label: heroLabel, lines: heroLines, desc: heroDesc, cta: heroCta, panel: heroPanel } = heroEls;
 
     if (heroLabel && !reduceMotion) {
-      gsap.set([heroLabel, heroDesc, ...heroCta], { autoAlpha: 0, y: 20 });
-      gsap.set(heroLines, { autoAlpha: 0, y: '110%' });
-      gsap.set(heroPanel, { autoAlpha: 0, y: 16, x: 16 });
       gsap.timeline({ defaults: { ease: 'power3.out' } })
         .to(heroLabel, { autoAlpha: 1, y: 0, duration: 0.6 }, 0.05)
         .to(heroLines, { autoAlpha: 1, y: '0%', duration: 0.8, stagger: 0.12 }, 0.2)
